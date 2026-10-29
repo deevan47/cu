@@ -1,0 +1,13 @@
+.mobile-menu {
+  position: fixed; inset: 80px 0 0 0; z-index: 29; background: var(--cream);
+  opacity: 0; transform: translateY(-8px); pointer-events: none;
+  transition: opacity .28s ease, transform .32s cubic-bezier(.2, .7, .2, 1);
+  padding: 24px clamp(20px, 6vw, 40px) 120px; display: flex; flex-direction: column; overflow-y: auto;
+}
+.mobile-menu.is-open { opacity: 1; transform: none; pointer-events: auto; }
+.mobile-menu nav { display: flex; flex-direction: column; }
+.mobile-menu a {
+  font-family: var(--serif); font-size: 38px; line-height: 1.15; padding: 12px 0;
+  color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line);
+}
+.mobile-menu a.is-active { color: var(--brand); }

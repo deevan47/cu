@@ -1,0 +1,9 @@
+/* Mobile-only WhatsApp bar that slides up once you've scrolled a bit. */
+.sticky-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 28;
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+  background: var(--cream); border-top: 1px solid var(--line);
+  transform: translateY(110%); transition: transform .35s cubic-bezier(.2, .7, .2, 1);
+}
+.sticky-bar.is-up { transform: none; }
+.sticky-bar .btn { display: block; font-size: 17px; padding: 18px; }

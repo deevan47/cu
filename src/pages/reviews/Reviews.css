@@ -1,0 +1,29 @@
+.reviews-hero { max-width: var(--max); margin: 0 auto; padding: clamp(48px, 7vw, 88px) var(--gutter) 0; }
+.reviews-main { max-width: var(--max); margin: 0 auto; padding: clamp(56px, 8vw, 96px) var(--gutter); }
+.reviews-main__grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: 32px clamp(32px, 6vw, 96px); align-items: start;
+}
+.review-tabs { display: flex; flex-direction: column; flex-wrap: wrap; gap: 4px 24px; }
+.reviews-main.is-narrow .review-tabs { flex-direction: row; }
+.review-tab {
+  background: none; border: 0; border-bottom: 2px solid var(--line); padding: 14px 0; text-align: left; cursor: pointer;
+  font-family: var(--serif); font-size: 24px; color: var(--muted); transition: color .2s ease, border-color .2s ease;
+}
+.review-tab:hover { color: var(--brand); }
+.review-tab[aria-selected='true'] { color: var(--brand); border-bottom-color: var(--brand); }
+.review { margin: 0; grid-column: span 2; min-width: 0; }
+.review blockquote { margin: 0; font-family: var(--serif); font-size: clamp(30px, 3.8vw, 48px); line-height: 1.18; text-wrap: pretty; }
+.review figcaption { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
+.review__who { font-size: 19px; font-weight: 700; }
+.review__badge { font-size: 15px; font-weight: 700; color: var(--dark); background: var(--sand); padding: 7px 11px; border-radius: 4px; }
+
+.delivered { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter) clamp(80px, 10vw, 128px); }
+.delivered__head {
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 12px 32px;
+  margin-bottom: 32px; padding-top: 44px; border-top: 1px solid var(--line);
+}
+.delivered__head h2 { margin: 0; font-family: var(--serif); font-weight: 400; font-size: clamp(34px, 4.2vw, 52px); line-height: 1.06; }
+.delivered__link { font-size: 18px; font-weight: 700; text-decoration-thickness: 2px; text-underline-offset: 7px; }
+.delivered__masonry { columns: 3 220px; column-gap: 20px; }
+.delivered__masonry > * { break-inside: avoid; margin-bottom: 20px; }

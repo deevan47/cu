@@ -1,0 +1,37 @@
+/* Brand colours + base page styles. Change a colour here and it changes everywhere. */
+:root {
+  --ink: #3F1809;      /* body text, dark backgrounds */
+  --brand: #A8461E;    /* terracotta: buttons, accents */
+  --dark: #6E2B10;     /* brand hover / small captions */
+  --cream: #FAF5EF;    /* page background */
+  --sand: #F3DCCC;     /* soft panels */
+  --accent: #DE8A57;   /* highlights, focus ring */
+  --line: #e6d6c7;     /* hairlines */
+  --muted: #6b4a3a;    /* secondary text */
+  --serif: 'Young Serif', Georgia, serif;
+  --max: 1280px;
+  --gutter: clamp(20px, 4vw, 40px);
+}
+
+html, body { overflow-x: clip; }
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font: 400 18px/1.6 Figtree, 'Noto Sans Devanagari', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+*, *::before, *::after { box-sizing: border-box; }
+svg { display: block; }
+/* :where() keeps these at zero specificity so any class overrides them */
+:where(a) { color: var(--brand); }
+:where(a):hover { color: var(--dark); }
+::selection { background: var(--sand); color: var(--ink); }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+input, textarea, button { font: inherit; color: inherit; }
+
+main { min-height: 70vh; transition: opacity .34s ease, transform .42s cubic-bezier(.2, .7, .2, 1); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
