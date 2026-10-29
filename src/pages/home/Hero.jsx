@@ -18,6 +18,7 @@ export default function Hero() {
           <a className="btn btn--primary" href={wa(MSG.order)} target="_blank" rel="noopener">Tell me who it’s for</a>
           <a className="btn btn--outline" href="#/products">See all 6 ways to say it</a>
         </div>
+        <a className="hero__request" href="#/request"><span aria-hidden="true">+</span> Can’t find it? Request a new gift</a>
         <div className="hero__trust">
           {TRUST.map((t) => <span key={t}><Eye />{t}</span>)}
         </div>

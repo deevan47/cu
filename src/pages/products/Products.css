@@ -39,3 +39,5 @@
   display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px 32px;
 }
 .products__help p { margin: 0; font-family: var(--serif); font-size: clamp(26px, 2.8vw, 34px); line-height: 1.15; }
+.products__new { margin: 28px 0 0; font-size: 19px; }
+.products__new .tlink { margin-left: 6px; }

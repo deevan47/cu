@@ -8,7 +8,7 @@ export default function MobileMenu() {
     <div className={`mobile-menu${menu ? ' is-open' : ''}`}>
       <nav aria-label="Mobile">
         {NAV.map((r) => (
-          <a key={r.key} href={`#/${r.key}`} className={page === r.key ? 'is-active' : ''} onClick={() => setMenu(false)}>{r.label}</a>
+          <a key={r.key} href={`#/${r.key}`} className={`${page === r.key ? 'is-active' : ''}${r.highlight ? ' is-request' : ''}`} onClick={() => setMenu(false)}>{r.label}</a>
         ))}
       </nav>
     </div>

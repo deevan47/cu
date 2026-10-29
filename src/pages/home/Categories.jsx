@@ -19,6 +19,7 @@ export default function Categories() {
           </a>
         ))}
       </div>
+      <p className="ways__more" data-reveal="1">Didn’t find yours in the catalogue? <a className="tlink" href="#/request">Request a new one</a></p>
     </section>
   );
 }

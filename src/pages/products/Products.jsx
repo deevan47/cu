@@ -51,6 +51,7 @@ export default function Products() {
             <p>Can’t decide? Tell me about them. I’ll find the feeling.</p>
             <a className="btn btn--primary btn--sm" href={wa(MSG.suggest)} target="_blank" rel="noopener">Help me find it</a>
           </div>
+          <p className="products__new">Not in the catalogue? We’ll make it. <a className="tlink" href="#/request">Request a new one</a></p>
         </div>
       </div>
     </section>

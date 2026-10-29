@@ -485,3 +485,29 @@ If any of these change, update every place:
 - **Photos deleted after delivery.** Appears in 2.1.9, 2.3, 4.16, 7.13, 8.12, 9.17, 11.10.
 - **Cancellation until printing starts.** Appears in 7.16, 9.5 to 9.7.
 - **Six product categories / "Six gifts" / "See all 6 ways to say it".** Appears in 2.1.5, 2.4.1, 3.2.
+
+---
+
+## 15. Request a gift (`src/pages/request/Request.jsx`; also the top bar, header button, hero link and Home request box)
+
+| # | Role | File | Current text | New text |
+|---|---|---|---|---|
+| 15.1 | H1 | `Request.jsx` | Not in our catalogue? Request a new one. |  |
+| 15.2 | Lead | `Request.jsx` | Couldn’t find what you need? Tell me. A new product, a gift for a particular need, a team order. If it’s not in the catalogue, I’ll make it and deliver it. I read every request myself. |  |
+| 15.3 | Chips (kind) | `Request.jsx` | A new product / A gift for a specific need / A bulk or team order / A change to something you make / A suggestion for you |  |
+| 15.4 | Labels | `Request.jsx` | What kind of request is it? / Tell me about it / How many? / Budget, if you have one / When, and where in Pune? / Your name |  |
+| 15.5 | Placeholders | `Request.jsx` | What is it, who’s it for, and what should it say or show? A rough idea is fine. / Just one, or about 20 / Optional / Date and area |  |
+| 15.6 | Starter chips | `Request.jsx` | A gift for the whole team / Favours for a wedding or anniversary / Something for their desk / A surprise box with a few things inside / A notebook or diary with their name / A tote bag with an inside joke |  |
+| 15.7 | BTN | `Request.jsx` | Send my request on WhatsApp |  |
+| 15.8 | Note | `Request.jsx` | You can share photos or a sketch in the chat. |  |
+| 15.9 | H2 + steps | `Request.jsx` | What happens next: I read it myself and reply on WhatsApp. / I confirm the details and the price with you. / You get a free preview first. Nothing is printed, and you pay nothing, until you’ve approved it. |  |
+| 15.10 | Note | `Request.jsx` | Delivering in Pune only for now. Your photos are deleted after delivery. |  |
+| 15.11 | LINK (Home, under the six cards) | `Categories.jsx` | Didn’t find yours in the catalogue? Request a new one |  |
+| 15.12 | LINK (Products page) | `Products.jsx` | Not in the catalogue? We’ll make it. Request a new one |  |
+| 15.14 | WhatsApp message | `src/lib/whatsapp.js` | Hi Cheer Up, I have a request (I’m {name}). Type: … What I’m thinking: … How many: … Budget: … When and where in Pune: … |  |
+| 15.15 | Top bar, every page | `src/components/RequestBar.jsx` | Can’t find it in our catalogue? We’ll make it. Request a new gift → |  |
+| 15.16 | Header + mobile menu + footer label | `src/routes.jsx` | Request a gift |  |
+| 15.17 | Hero link | `Hero.jsx` | Can’t find it? Request a new gift |  |
+| 15.18 | Home request box (under the hero) | `RequestBand.jsx` | Not in our catalogue? / Have a gift in mind? Request it now. / Describe it in a line. I’ll make it and deliver it. No need to browse first. |  |
+| 15.19 | Request box field + chips | `RequestBand.jsx` | Who’s it for, and what should it be? A rough idea is fine. / A gift for the whole team / Something for their desk / Favours for a wedding or anniversary / A tote bag with an inside joke |  |
+| 15.20 | Request box buttons | `RequestBand.jsx` | Send my request on WhatsApp / Add quantity, budget or date |  |

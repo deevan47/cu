@@ -11,3 +11,5 @@
   color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line);
 }
 .mobile-menu a.is-active { color: var(--brand); }
+.mobile-menu a.is-request { color: var(--brand); }
+.mobile-menu a.is-request::after { content: ' +'; }

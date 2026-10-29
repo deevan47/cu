@@ -17,7 +17,7 @@ export default function Header() {
           <>
             <nav aria-label="Main" className="site-nav">
               {NAV.map((r) => (
-                <a key={r.key} href={`#/${r.key}`} className={page === r.key ? 'is-active' : ''}>{r.label}</a>
+                <a key={r.key} href={`#/${r.key}`} className={`${page === r.key ? 'is-active' : ''}${r.highlight ? ' is-request' : ''}`}>{r.label}</a>
               ))}
             </nav>
             <a className="btn btn--primary site-header__cta" href={wa(MSG.order)} target="_blank" rel="noopener">Start their moment</a>

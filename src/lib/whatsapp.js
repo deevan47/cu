@@ -9,6 +9,15 @@ export const MSG = {
   review: 'Hi Cheer Up, here’s a photo of the gift I received. Sharing the smile!',
   idea: (who, cat, line) => `Hi Cheer Up, I’d like a gift for my ${who.toLowerCase()}. ${cat}: “${line}”`,
   question: (variant, cat) => `Hi Cheer Up, quick question about the ${variant} (${cat}).`,
+  request: (f) =>
+    [
+      `Hi Cheer Up, I have a request${f.name ? ` (I’m ${f.name})` : ''}.`,
+      `Type: ${f.kind}`,
+      f.what ? `What I’m thinking: ${f.what}` : '',
+      f.qty ? `How many: ${f.qty}` : '',
+      f.budget ? `Budget: ${f.budget}` : '',
+      f.when ? `When and where in Pune: ${f.when}` : '',
+    ].filter(Boolean).join('\n'),
   sheet: (item, f) =>
     [
       `Hi Cheer Up, I’d like to order: ${item.cat}, ${item.n}.`,

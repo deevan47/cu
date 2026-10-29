@@ -2,6 +2,8 @@
 // To add a page: create the file in src/pages/, then add one line below.
 //   group 'main'   -> shows in the header + footer "Pages" list (and mobile menu)
 //   group 'policy' -> shows in the footer "Policies" list and the policy pages
+//   group 'extra'  -> a real page, but not in the nav; link to it yourself with href="#/<key>"
+//   highlight: true -> shown as a button-style link in the header and mobile menu
 import Home from './pages/home/Home';
 import Products from './pages/products/Products';
 import How from './pages/how/How';
@@ -9,6 +11,7 @@ import About from './pages/about/About';
 import Reviews from './pages/reviews/Reviews';
 import Faq from './pages/faq/Faq';
 import Contact from './pages/contact/Contact';
+import Request from './pages/request/Request';
 import Refund from './pages/policies/Refund';
 import Shipping from './pages/policies/Shipping';
 import Privacy from './pages/policies/Privacy';
@@ -17,6 +20,7 @@ import Terms from './pages/policies/Terms';
 export const ROUTES = [
   { key: 'home', label: 'Home', group: 'main', Page: Home },
   { key: 'products', label: 'Gifts', group: 'main', Page: Products },
+  { key: 'request', label: 'Request a gift', group: 'main', highlight: true, Page: Request },
   { key: 'how', label: 'How it works', group: 'main', Page: How },
   { key: 'about', label: 'My story', group: 'main', Page: About },
   { key: 'reviews', label: 'Reviews', group: 'main', Page: Reviews },

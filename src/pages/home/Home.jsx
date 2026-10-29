@@ -1,6 +1,7 @@
 // HOME PAGE: sections stack top to bottom in this order. Reorder / remove lines freely.
 import './Home.css';
 import Hero from './Hero';
+import RequestBand from './RequestBand';
 import LuckyOne from './LuckyOne';
 import Promises from './Promises';
 import Categories from './Categories';
@@ -12,6 +13,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <RequestBand />
       <LuckyOne />
       <Promises />
       <Categories />

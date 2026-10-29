@@ -4,6 +4,7 @@ import { findRoute, parsePage } from './routes';
 import useNarrow from './hooks/useNarrow';
 import { drawLine, enter, reducedMotion, stopObserving } from './lib/motion';
 import BrandSprite from './components/BrandSprite';
+import RequestBar from './components/RequestBar';
 import Header from './components/Header';
 import MobileMenu from './components/MobileMenu';
 import StickyBar from './components/StickyBar';
@@ -87,6 +88,7 @@ export default function App() {
   return (
     <AppContext.Provider value={ctx}>
       <BrandSprite />
+      <RequestBar />
       <Header />
       <MobileMenu />
       <StickyBar />
