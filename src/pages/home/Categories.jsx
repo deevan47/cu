@@ -2,18 +2,22 @@ import { useApp } from '../../AppContext';
 import { CATS } from '../../data/products';
 import Photo from '../../components/Photo';
 
+// "Six ways": a plain grid of the six gift types.
 export default function Categories() {
-  const { narrow, setCat } = useApp();
+  const { setCat } = useApp();
   return (
     <section className="ways">
-      <div data-reveal="1" className="ways__head">
-        <h2 className="h-section">Six ways to say <span className="accent">“you matter to me.”</span></h2>
+      <div className="ways__head" data-reveal="1">
+        <div>
+          <p className="kicker"><b>03</b>The gifts</p>
+          <h2 className="h-section">Six ways to say <span className="accent">“you matter to me.”</span></h2>
+        </div>
         <a className="tlink ways__all" href="#/products">See them all</a>
       </div>
-      <div data-reveal="1" className={`ways__grid${narrow ? ' is-narrow' : ''}`}>
+      <div data-reveal="1" className="ways__grid">
         {CATS.map((c, i) => (
           <a key={c.name} className="cat-card" href="#/products" onClick={() => setCat(i)}>
-            <Photo ratio="3/4" label={`Photo: ${c.name.toLowerCase()}`} src={c.image} />
+            <Photo ratio="4/5" label={`Photo: ${c.name.toLowerCase()}`} src={c.image} />
             <div className="cat-card__name">{c.name}</div>
             <div className="cat-card__tag">{c.tag}</div>
           </a>

@@ -16,7 +16,7 @@
 .site-nav a.is-active { color: var(--brand); text-decoration-color: var(--brand); }
 
 .site-nav a.is-request {
-  background: var(--sand); color: var(--brand); border: 1.5px solid var(--brand); border-radius: 999px; padding: 10px 16px; text-decoration: none;
+  color: var(--brand); border: 1.5px solid var(--brand); border-radius: var(--r); padding: 10px 16px; text-decoration: none;
   transition: background-color .2s ease, color .2s ease;
 }
 .site-nav a.is-request:hover, .site-nav a.is-request.is-active { background: var(--brand); color: var(--cream); }

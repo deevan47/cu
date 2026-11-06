@@ -511,3 +511,16 @@ If any of these change, update every place:
 | 15.18 | Home request box (under the hero) | `RequestBand.jsx` | Not in our catalogue? / Have a gift in mind? Request it now. / Describe it in a line. I’ll make it and deliver it. No need to browse first. |  |
 | 15.19 | Request box field + chips | `RequestBand.jsx` | Who’s it for, and what should it be? A rough idea is fine. / A gift for the whole team / Something for their desk / Favours for a wedding or anniversary / A tote bag with an inside joke |  |
 | 15.20 | Request box buttons | `RequestBand.jsx` | Send my request on WhatsApp / Add quantity, budget or date |  |
+
+---
+
+## 16. Section labels and small text added by the minimal re-theme (2026-11-06)
+
+| # | Role | File | Current text | New text |
+|---|---|---|---|---|
+| 16.1 | Hero eyebrow | `Hero.jsx` | Made for one person. Felt for a lifetime. Pune. |  |
+| 16.2 | Hero buttons | `Hero.jsx` | Request a gift / See the gifts |  |
+| 16.3 | Section markers | `RequestBand.jsx`, `LuckyOne.jsx`, `Promises.jsx`, `Categories.jsx`, `Process.jsx`, `FounderTeaser.jsx` | Not in our catalogue? / 01 Who’s it for / 02 The deal / 03 The gifts / 04 How it works / 05 The person |  |
+| 16.4 | Request box button | `RequestBand.jsx` | Send on WhatsApp |  |
+| 16.5 | Step numbers (Home) | `Process.jsx` | 01 / 02 / 03 |  |
+

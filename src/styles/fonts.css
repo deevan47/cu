@@ -59,3 +59,16 @@
   src: url('../assets/fonts/young-serif-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
+
+/* Numerals. Young Serif has no lining or tabular figures, so its digits look uneven.
+   Digits and % in headings are drawn with Figtree Bold instead (same family as the body), sized to sit with the serif.
+   Only used for the characters in unicode-range; letters still come from Young Serif. */
+@font-face {
+  font-family: 'CU Numerals';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  size-adjust: 104%;
+  src: url('../assets/fonts/figtree-latin.woff2') format('woff2');
+  unicode-range: U+0030-0039, U+0025;
+}

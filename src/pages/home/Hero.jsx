@@ -1,5 +1,4 @@
 import { Eye } from '../../components/Logo';
-import { wa, MSG } from '../../lib/whatsapp';
 import { intro } from '../../lib/motion';
 
 const TRUST = ['See it first, free', 'Pay only once you love it', 'No online payment. Just a chat.', 'Your photos deleted after delivery'];
@@ -7,7 +6,7 @@ const TRUST = ['See it first, free', 'Pay only once you love it', 'No online pay
 export default function Hero() {
   return (
     <section data-screen-label="Home" className="hero">
-      <div>
+      <div className="hero__copy">
         <p className="hero__eyebrow">Made for one person. Felt for a lifetime. Pune.</p>
         <h1 className="hero__title">Give them the <span className="accent">“you remembered” moment.</span></h1>
         <p className="hero__lead">
@@ -15,10 +14,9 @@ export default function Hero() {
           <b>At their door in Pune within 24 hours.</b>
         </p>
         <div className="hero__cta">
-          <a className="btn btn--primary" href={wa(MSG.order)} target="_blank" rel="noopener">Tell me who it’s for</a>
-          <a className="btn btn--outline" href="#/products">See all 6 ways to say it</a>
+          <a className="btn btn--primary" href="#/request">Request a gift</a>
+          <a className="btn btn--outline" href="#/products">See the gifts</a>
         </div>
-        <a className="hero__request" href="#/request"><span aria-hidden="true">+</span> Can’t find it? Request a new gift</a>
         <div className="hero__trust">
           {TRUST.map((t) => <span key={t}><Eye />{t}</span>)}
         </div>

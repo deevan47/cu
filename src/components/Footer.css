@@ -14,3 +14,4 @@
   max-width: var(--max); margin: 0 auto; padding: 22px var(--gutter) 32px;
   border-top: 1px solid rgba(243, 220, 204, .18); font-size: 15px;
 }
+.site-footer__col a, .site-footer__col span { overflow-wrap: anywhere; }
