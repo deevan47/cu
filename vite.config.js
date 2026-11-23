@@ -1,9 +1,11 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// base './' = relative asset paths, so the build works on GitHub Pages
-// whatever your repo is called (user.github.io/any-repo-name/).
+// base '/' because the site is served from the root of its own domain (see CNAME)
+// and the pages are real paths like /gifts, not '#/gifts'. A relative base would
+// break asset URLs on any page below the root.
 export default defineConfig({
-  base: './',
+  base: '/',
   plugins: [react()],
+  build: { rollupOptions: { input: 'index.html' } },
 });

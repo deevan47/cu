@@ -16,13 +16,15 @@ export const MSG = {
       f.what ? `What I’m thinking: ${f.what}` : '',
       f.qty ? `How many: ${f.qty}` : '',
       f.budget ? `Budget: ${f.budget}` : '',
-      f.when ? `When and where in Pune: ${f.when}` : '',
+      f.when ? `Delivery date: ${f.when}` : '',
+      f.area ? `Area in Pune: ${f.area}` : '',
     ].filter(Boolean).join('\n'),
   sheet: (item, f) =>
     [
       `Hi Cheer Up, I’d like to order: ${item.cat}, ${item.n}.`,
       f.who ? `For: ${f.who}` : '',
       f.what ? `On it: ${f.what}` : '',
-      f.when ? `When and where: ${f.when}` : '',
+      f.when ? `Delivery date: ${f.when}` : '',
+      f.area ? `Area in Pune: ${f.area}` : '',
     ].filter(Boolean).join('\n'),
 };

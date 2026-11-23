@@ -1,17 +1,20 @@
 .site-footer { background: var(--ink); color: var(--sand); }
-.site-footer.has-bar { padding-bottom: 84px; }
 .site-footer__grid {
-  max-width: var(--max); margin: 0 auto; padding: clamp(56px, 7vw, 88px) var(--gutter) 44px;
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 44px 40px; align-items: start;
+  max-width: var(--max); margin: 0 auto; padding: var(--section-y) var(--gutter) var(--s7);
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr));
+  gap: var(--s7) var(--s6); align-items: start;
 }
 .site-footer__logo { color: var(--cream); display: block; }
 .site-footer__logo svg { width: 170px; height: auto; }
-.site-footer__col { display: flex; flex-direction: column; gap: 12px; font-size: 17px; }
-.site-footer__head { font-weight: 700; color: var(--cream); margin-bottom: 4px; }
-.site-footer__col a { color: var(--sand); text-decoration: none; transition: color .2s ease; }
+.site-footer__where { margin: var(--s4) 0 0; font-size: var(--fs-xs); color: var(--sand); }
+.site-footer__col { display: flex; flex-direction: column; align-items: flex-start; gap: var(--s3); font-size: 17px; }
+.site-footer__head { font-weight: 700; color: var(--cream); margin-bottom: var(--s1); }
+.site-footer__col a { color: var(--sand); text-decoration: none; overflow-wrap: anywhere; transition: color .2s ease; }
 .site-footer__col a:hover { color: var(--cream); text-decoration: underline; text-underline-offset: 5px; }
 .site-footer__legal {
-  max-width: var(--max); margin: 0 auto; padding: 22px var(--gutter) 32px;
-  border-top: 1px solid rgba(243, 220, 204, .18); font-size: 15px;
+  max-width: var(--max); margin: 0 auto; padding: var(--s5) var(--gutter) var(--s6);
+  border-top: 1px solid rgba(243, 220, 204, .18); font-size: var(--fs-xs);
 }
-.site-footer__col a, .site-footer__col span { overflow-wrap: anywhere; }
+
+/* Phones: leave room for the sticky WhatsApp bar. */
+@media (max-width: 1099px) { .site-footer { padding-bottom: 84px; } }

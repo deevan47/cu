@@ -1,12 +1,24 @@
 import PolicyLayout from './PolicyLayout';
+import { SITE } from '../../data/site';
 
 export default function Shipping() {
   return (
     <PolicyLayout current="shipping" title="Delivery">
-      <p>I currently deliver only within Pune.</p>
+      {/* One line about Pune. It used to say "I currently deliver only within Pune"
+          in paragraph 1 and "I don't offer shipping outside Pune yet" in paragraph 4. */}
+      <p>I deliver only within {SITE.city} for now.</p>
       <p>Once your design is approved and the advance is paid, your gift is printed, personally quality-checked and hand-delivered, usually within 24 hours.</p>
       <p>I’ll keep you posted on WhatsApp at every step.</p>
-      <p>I don’t offer shipping outside Pune yet.</p>
+      {SITE.deliveryCharge === 'free' && <p>Delivery within {SITE.city} is free.</p>}
+      {SITE.deliveryCharge && SITE.deliveryCharge !== 'free' && <p>Delivery within {SITE.city} costs {SITE.deliveryCharge}.</p>}
+      {!SITE.deliveryCharge && (
+        <p className="policy__todo">
+          OWNER TO SUPPLY: the delivery charge. It is the question buyers ask most and
+          the one thing this page does not answer. Set <code>deliveryCharge</code> in
+          src/data/site.js to the figure, or to <code>&apos;free&apos;</code>, and this
+          note is replaced by the real line.
+        </p>
+      )}
     </PolicyLayout>
   );
 }

@@ -1,53 +1,63 @@
 import './Reviews.css';
-import { useApp } from '../../AppContext';
-import { REVIEWS } from '../../data/reviews';
-import { PHOTOS } from '../../data/photos';
+import { DELIVERED, REVIEWS } from '../../data/reviews';
 import { wa, MSG } from '../../lib/whatsapp';
-import { rise } from '../../lib/motion';
-import useUpdateEffect from '../../hooks/useUpdateEffect';
+import WaLink from '../../components/WaLink';
 import Photo from '../../components/Photo';
 
+/**
+ * Honest about being new.
+ *
+ * All three reviews on this page were samples, labelled as samples on screen, and
+ * the gallery under them was six dashed placeholder boxes. Until there are real
+ * quotes, the page says so and asks for one. Reviews is also out of the nav while
+ * this is the case (see routes.jsx).
+ */
 export default function Reviews() {
-  const { narrow, review: i, setReview } = useApp();
-  const r = REVIEWS[i];
-
-  useUpdateEffect(() => { rise('[data-quote]'); }, [i]);
+  const empty = REVIEWS.length === 0;
 
   return (
     <>
       <section data-screen-label="Reviews" className="reviews-hero">
-        <h1 className="h-page" style={{ maxWidth: '12ch' }}>Don’t take <span className="accent">my word</span> for it.</h1>
-        <p className="lead" style={{ maxWidth: '36ch' }}>Every order so far came from a friend of a friend. Here’s what they felt.</p>
+        {empty ? (
+          <>
+            <h1 className="h-page">Reviews are <span className="accent">on their way.</span></h1>
+            <p className="lead">Cheer Up is new. Real reviews from real customers go up here, with their permission.</p>
+          </>
+        ) : (
+          <>
+            <h1 className="h-page">Don’t take <span className="accent">my word</span> for it.</h1>
+            <p className="lead">Every order so far came from a friend of a friend. Here’s what they felt.</p>
+          </>
+        )}
+        <p className="reviews-hero__ask">
+          <WaLink href={wa(MSG.review)}>Send me your photo on WhatsApp</WaLink>
+        </p>
       </section>
 
-      <section className={`reviews-main${narrow ? ' is-narrow' : ''}`}>
-        <div className="reviews-main__grid">
-          <div role="tablist" aria-label="Reviews by gift" className="review-tabs">
-            {REVIEWS.map((t, n) => (
-              <button key={t.product} role="tab" className="review-tab" aria-selected={n === i} onClick={() => setReview(n)}>{t.product}</button>
+      {/* All of them, stacked. Behind tabs, only one review was ever read. */}
+      {!empty && (
+        <section className="reviews-list">
+          {REVIEWS.map((r) => (
+            <figure key={r.q} className="review">
+              <blockquote>“{r.q}”</blockquote>
+              <figcaption>{r.who}</figcaption>
+            </figure>
+          ))}
+        </section>
+      )}
+
+      {DELIVERED.length > 0 && (
+        <section className="delivered">
+          <div data-reveal="1" className="delivered__head">
+            <h2 className="h-section">Delivered. <span className="accent">Smiled at.</span></h2>
+          </div>
+          <div data-reveal="1" className="delivered__masonry">
+            {DELIVERED.map((p) => (
+              <Photo key={p.src} src={p.src} alt={p.alt} sizes="(max-width: 700px) 92vw, 260px" />
             ))}
           </div>
-          <figure data-quote="1" className="review">
-            <blockquote>“{r.q}”</blockquote>
-            <figcaption>
-              <span className="review__who">{r.who}</span>
-              {r.sample && <span className="review__badge">Sample review, replace with a real customer quote</span>}
-            </figcaption>
-          </figure>
-        </div>
-      </section>
-
-      <section className="delivered">
-        <div data-reveal="1" className="delivered__head">
-          <h2>Delivered. <span className="accent">Smiled at.</span></h2>
-          <a className="delivered__link" href={wa(MSG.review)} target="_blank" rel="noopener">Got a gift from me? Share the smile.</a>
-        </div>
-        <div data-reveal="1" className="delivered__masonry">
-          {PHOTOS.delivered.map((p) => (
-            <Photo key={p.label} ratio={p.ratio} label={`Photo: ${p.label}`} src={p.src} />
-          ))}
-        </div>
-      </section>
+        </section>
+      )}
     </>
   );
 }

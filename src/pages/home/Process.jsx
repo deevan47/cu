@@ -1,4 +1,8 @@
-// "Two texts and a doorbell": the 3-step summary as ticket stubs (full 7 steps live on the How page).
+import { href } from '../../routes';
+
+// The 3-step summary. The full seven steps live on the How it works page, and the
+// heading has to agree with it: this used to say "Two texts" while that page said
+// "Seven steps", which made the shorter promise look untrue.
 const STEPS = [
   ['Tell me about them.', 'A photo, a name, or just “help, it’s their birthday.” Start with the feeling. I’ll handle the rest.'],
   ['I send you a free preview.', 'Change anything until it feels exactly right. Then pay 70%.'],
@@ -9,20 +13,20 @@ export default function Process() {
   return (
     <section className="process">
       <div className="process__inner">
-        <p className="kicker"><b>04</b>How it works</p>
+        <p className="eyebrow">How it works</p>
         <div data-reveal="1" className="process__head">
-          <h2 className="h-section">Two texts. <span className="accent">One happy doorbell.</span></h2>
-          <a className="tlink process__link" href="#/how">See every step</a>
+          <h2 className="h-section">Three steps. <span className="accent">One happy doorbell.</span></h2>
+          <a className="tlink tap process__link" href={href('how')}>See every step</a>
         </div>
-        <div data-reveal="1" className="steps3">
+        <ol data-reveal="1" className="steps3">
           {STEPS.map(([h, p], i) => (
-            <div key={h} className="step3">
-              <span className="step3__no">{String(i + 1).padStart(2, '0')}</span>
+            <li key={h} className="step3">
+              <span className="step3__no" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
               <h3>{h}</h3>
               <p>{p}</p>
-            </div>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   );

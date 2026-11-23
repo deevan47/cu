@@ -1,5 +1,8 @@
 import { Eye } from '../../components/Logo';
 import { intro } from '../../lib/motion';
+import { wa, MSG } from '../../lib/whatsapp';
+import WaLink from '../../components/WaLink';
+import { href } from '../../routes';
 
 const TRUST = ['See it first, free', 'Pay only once you love it', 'No online payment. Just a chat.', 'Your photos deleted after delivery'];
 
@@ -7,19 +10,22 @@ export default function Hero() {
   return (
     <section data-screen-label="Home" className="hero">
       <div className="hero__copy">
-        <p className="hero__eyebrow">Made for one person. Felt for a lifetime. Pune.</p>
+        <p className="eyebrow">Made for one person · Pune</p>
         <h1 className="hero__title">Give them the <span className="accent">“you remembered” moment.</span></h1>
         <p className="hero__lead">
           That tiny pause when they open it, go quiet, and realise you really thought of them? I make that happen. Their photo, their name, your inside joke.{' '}
-          <b>At their door in Pune within 24 hours.</b>
+          <b className="hl">At their door in Pune within 24 hours.</b>
         </p>
         <div className="hero__cta">
-          <a className="btn btn--primary" href="#/request">Request a gift</a>
-          <a className="btn btn--outline" href="#/products">See the gifts</a>
+          {/* The main action is the chat. The old primary button sent everyone to
+              the off-catalogue request form instead, which is the opposite of what
+              the headline promises. */}
+          <WaLink href={wa(MSG.order)}>Chat on WhatsApp</WaLink>
+          <a className="btn btn--outline" href={href('products')}>See the gifts</a>
         </div>
-        <div className="hero__trust">
-          {TRUST.map((t) => <span key={t}><Eye />{t}</span>)}
-        </div>
+        <ul className="hero__trust">
+          {TRUST.map((t) => <li key={t}><Eye />{t}</li>)}
+        </ul>
       </div>
       <div className="hero__art">
         <HeroLogo />
@@ -29,6 +35,7 @@ export default function Hero() {
 }
 
 // The animated logo: smile draws in via a mask, eyes drop on top, tagline fades in. See lib/motion.js (intro).
+// LOCKED: shapes, colours, size and the animation. Do not touch.
 function HeroLogo() {
   return (
     <svg className="hero__logo" viewBox="0 0 800 480" onMouseEnter={() => intro(true)} role="img" aria-label="Cheer Up, Smile Delivered">

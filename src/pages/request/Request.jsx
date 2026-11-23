@@ -1,71 +1,103 @@
 import { useState } from 'react';
 import './Request.css';
 import { wa, MSG } from '../../lib/whatsapp';
+import WaLink from '../../components/WaLink';
 
-// What kind of request is it? Edit freely.
+// What kind of request is it? One choice, so these are radios, not toggles.
 const KINDS = ['A new product', 'A gift for a specific need', 'A bulk or team order', 'A change to something you make', 'A suggestion for you'];
-// Tap-to-fill starting points for the description box. Edit freely.
+// Tap-to-fill starting points. Three, not six: eleven buttons before the visitor
+// had typed a word was a wall of choices, not a nudge.
 const STARTERS = [
   'A gift for the whole team',
-  'Favours for a wedding or anniversary',
   'Something for their desk',
-  'A surprise box with a few things inside',
-  'A notebook or diary with their name',
   'A tote bag with an inside joke',
 ];
 
+const today = () => new Date().toISOString().slice(0, 10);
+
 export default function Request() {
-  const [f, setF] = useState({ name: '', kind: KINDS[0], what: '', qty: '', when: '', budget: '' });
-  const set = (k) => (e) => setF((v) => ({ ...v, [k]: e.target.value }));
+  const [f, setF] = useState({ name: '', kind: KINDS[0], what: '', qty: '', when: '', area: '', budget: '' });
+  // the value is read now, not inside the updater: see the note in pages/faq/Faq.jsx
+  const set = (k) => (e) => { const { value } = e.target; setF((v) => ({ ...v, [k]: value })); };
   const fill = (text) => setF((v) => ({ ...v, what: v.what ? `${v.what.trim()} ${text}` : text }));
 
   return (
     <section data-screen-label="Request" className="request">
-      <h1 className="h-page" style={{ maxWidth: '13ch' }}>Not in our catalogue? <span className="accent">Request a new one.</span></h1>
-      <p className="lead" style={{ maxWidth: '36ch' }}>Couldn’t find what you need? Tell me. A new product, a gift for a particular need, a team order. If it’s not in the catalogue, I’ll make it and deliver it. I read every request myself.</p>
+      <div className="request__head">
+        <h1 className="h-page">Request a <span className="accent">custom gift.</span></h1>
+        <p className="lead">Not in the catalogue? Tell me what you want and <b className="hl">I’ll make it and deliver it in Pune.</b> I read every request myself.</p>
+      </div>
 
       <div className="request__grid">
         <form className="request__form" onSubmit={(e) => e.preventDefault()}>
-          <div className="req__field">
-            <span className="req__label">What kind of request is it?</span>
-            <div className="req__chips" role="group" aria-label="Kind of request">
+          {/* A fieldset and radios, because this is one choice out of five. As five
+              aria-pressed buttons a screen reader announced five unrelated on/off
+              switches and never read the question. */}
+          <fieldset className="req__kinds">
+            <legend>What kind of request is it?</legend>
+            <div className="req__chips">
               {KINDS.map((k) => (
-                <button key={k} type="button" className="req__chip" aria-pressed={f.kind === k} onClick={() => setF((v) => ({ ...v, kind: k }))}>{k}</button>
+                <label key={k} className={`chip${f.kind === k ? ' chip--on' : ''}`}>
+                  <input
+                    type="radio"
+                    name="kind"
+                    className="sr-only"
+                    value={k}
+                    checked={f.kind === k}
+                    onChange={() => setF((v) => ({ ...v, kind: k }))}
+                  />
+                  {k}
+                </label>
               ))}
             </div>
-          </div>
+          </fieldset>
 
-          <label className="req__field">
-            <span className="req__label">Tell me about it</span>
-            <textarea value={f.what} onChange={set('what')} rows={5} placeholder="What is it, who’s it for, and what should it say or show? A rough idea is fine." />
-          </label>
+          <div className="field">
+            <label htmlFor="req-what">Tell me about it</label>
+            <textarea
+              id="req-what" value={f.what} onChange={set('what')} rows={5}
+              placeholder="What is it, who’s it for, and what should it say or show? A rough idea is fine."
+            />
+          </div>
           <div className="req__starters">
             <span>Need a nudge?</span>
-            {STARTERS.map((s) => <button key={s} type="button" className="req__starter" onClick={() => fill(s)}>{s}</button>)}
+            {STARTERS.map((s) => (
+              <button key={s} type="button" className="chip req__starter" onClick={() => fill(s)}>{s}</button>
+            ))}
           </div>
 
           <div className="req__row">
-            <label className="req__field">
-              <span className="req__label">How many?</span>
-              <input value={f.qty} onChange={set('qty')} placeholder="Just one, or about 20" />
-            </label>
-            <label className="req__field">
-              <span className="req__label">Budget, if you have one</span>
-              <input value={f.budget} onChange={set('budget')} placeholder="Optional" />
-            </label>
+            <div className="field">
+              <label htmlFor="req-qty">How many?</label>
+              <input id="req-qty" value={f.qty} onChange={set('qty')} inputMode="numeric" placeholder="1" />
+            </div>
+            <div className="field">
+              <label htmlFor="req-budget">Budget (optional)</label>
+              <input id="req-budget" value={f.budget} onChange={set('budget')} inputMode="numeric" placeholder="e.g. ₹500" />
+            </div>
           </div>
-          <label className="req__field">
-            <span className="req__label">When, and where in Pune?</span>
-            <input value={f.when} onChange={set('when')} placeholder="Date and area" />
-          </label>
-          <label className="req__field">
-            <span className="req__label">Your name</span>
-            <input value={f.name} onChange={set('name')} placeholder="Optional" />
-          </label>
+
+          {/* Two answers, two fields. One "Date and area" box got half-filled every
+              time, and the rest had to be asked again on WhatsApp. */}
+          <div className="req__row">
+            <div className="field">
+              <label htmlFor="req-date">Delivery date</label>
+              <input id="req-date" type="date" value={f.when} onChange={set('when')} min={today()} />
+            </div>
+            <div className="field">
+              <label htmlFor="req-area">Area in Pune</label>
+              <input id="req-area" value={f.area} onChange={set('area')} autoComplete="address-level3" placeholder="e.g. Kothrud" />
+            </div>
+          </div>
+
+          <div className="field">
+            <label htmlFor="req-name">Your name (optional)</label>
+            <input id="req-name" value={f.name} onChange={set('name')} autoComplete="name" placeholder="So I know who’s asking" />
+          </div>
 
           <div className="req__send">
-            <a className="btn btn--primary" href={wa(MSG.request(f))} target="_blank" rel="noopener">Send my request on WhatsApp</a>
-            <p>You can share photos or a sketch in the chat.</p>
+            <WaLink href={wa(MSG.request(f))}>Send request on WhatsApp</WaLink>
+            <p className="field__hint">You can share photos or a sketch in the chat.</p>
           </div>
         </form>
 

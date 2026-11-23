@@ -1,7 +1,18 @@
-// REVIEW PLACEHOLDER: sample reviews, replace with real customer quotes.
-// When a review is real, set  sample: false  and the "Sample review" badge disappears.
-export const REVIEWS = [
-  { product: 'Mug', sample: true, q: 'Ordered a mug for my friend’s birthday. The preview looked exactly like what I’d imagined, and it reached them the same evening. Best surprise I’ve ever pulled off.', who: 'Customer name, mug for a birthday' },
-  { product: 'Polaroids', sample: true, q: 'Sent twenty old photos for my parents’ anniversary. The Mini Snaps came back in a little stack and my mum cried. Good tears.', who: 'Customer name, Polaroids for an anniversary' },
-  { product: 'Keychain', sample: true, q: 'I had no idea what to get my roommate, so I just described them. The idea back: a keychain with their bike’s number plate. They haven’t taken it off since.', who: 'Customer name, keychain, gift suggestion' },
-];
+// Real customer reviews only.
+//
+// There used to be three sample reviews here, written for the template, each shown
+// with a badge reading "Sample review, replace with a real customer quote" and an
+// author of "Customer name, mug for a birthday". The only social proof on the site
+// announced that it was invented, which reads worse than having none.
+//
+// To add a real one, with the customer's permission:
+//   { q: 'what they said', who: 'First name, area', product: 'Mug' }
+// At three or more, put Reviews back in the nav: in routes.jsx change the reviews
+// route's  group: 'extra'  to  group: 'main'.
+export const REVIEWS = [];
+
+// Real photos of delivered gifts, for the gallery on the Reviews page.
+//   { src: 'photos/file.jpg', alt: 'what it shows' }   then run `npm run images`
+// Empty means the section is not rendered at all; it used to draw six dashed
+// placeholder boxes, about 1,400px of empty frames titled "Delivered. Smiled at."
+export const DELIVERED = [];

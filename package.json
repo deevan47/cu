@@ -5,9 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && vite build --ssr src/entry-server.jsx --outDir .ssr-build && node scripts/prerender.mjs",
     "preview": "vite preview",
-    "deploy": "npm run build && gh-pages -d dist"
+    "deploy": "npm run build && gh-pages -d dist",
+    "images": "node scripts/images.mjs",
+    "og": "node scripts/og-image.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",

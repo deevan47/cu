@@ -1,5 +1,6 @@
 // "Who's the lucky one?" on the Home page. Each idea = [product category name, one-liner].
-// The category name must match a name in products.js. An empty ideas list shows the "Help me find it" card.
+// The category name must match a name in products.js. An empty ideas list shows the
+// "tell me three things about them" panel instead of a list of ideas.
 export const PEOPLE = [
   { k: 'Mum', ideas: [['Polaroids', 'Fill their fridge with every face they love.'], ['Paintings and prints', 'Your baby photo, framed. Keep tissues ready. For both of you.'], ['Mugs', 'They’ve poured chai for everyone. Now pour them one with their name on it.']] },
   { k: 'Dad', ideas: [['Mugs', 'They’ll never say it. They’ll just drink from it every morning.'], ['Keychains', 'Car keys. House keys. And you.'], ['Paintings and prints', 'The photo they’re secretly proudest of, where they can see it daily.']] },
