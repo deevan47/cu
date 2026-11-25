@@ -1,50 +1,37 @@
-import { CATS, catId } from '../../data/products';
-import { price } from '../../lib/money';
+import { CATS, imageFor } from '../../data/products';
+import { priceWithUnit } from '../../lib/money';
 import { href } from '../../routes';
-import Photo from '../../components/Photo';
+import ImageSlot from '../../components/ImageSlot';
 
 /**
  * Four real products, named and priced, directly under the hero.
  *
- * The hero is the brand mark and the promise, and the first screen used to end
- * there: a visitor could scroll a long way without seeing a single thing they
- * could buy. Unlabelled photos were barely better, because a picture of a mug
- * does not tell you it is ₹329 or what it is called.
+ * It fills itself from the catalogue: the first four products that have a photo
+ * set in data/products.js, in catalogue order. Right now no product photos are
+ * switched on, so this section renders NOTHING rather than four empty boxes
+ * under the hero. Add photos and it appears on its own.
  *
- * Named by product rather than by category, because "Photo keychain, ₹159" is a
- * thing you can decide about and "Keychains" is not.
- *
- * PHOTO NOTE (owner): these still show the logo printed on the product rather
- * than someone's photo or name. See the note at the top of data/products.js.
+ * To choose exactly which four appear instead, replace `picks` with a fixed list:
+ *   const picks = [['polaroids', 'big'], ['mugs', 'colour'], ...]
+ *     .map(([c, o]) => { const cat = findCat(c); return { cat, opt: findOption(c, o) }; });
  */
-const PICKS = [
-  ['Polaroids', 'Big Snaps'],
-  ['Mugs', 'Colour inside mug'],
-  ['Keychains', 'Photo keychain'],
-  ['T-shirts and hoodies', 'Photo tee'],
-];
-
-/** Pulls the live name, photo, alt text and price out of the catalogue. */
-const look = ([catName, variantName]) => {
-  const cat = CATS.find((c) => c.name === catName);
-  const v = cat.variants.find((x) => x.n === variantName);
-  return { ...v, catName, id: catId(catName) };
-};
-
 export default function Showcase() {
+  const picks = CATS
+    .flatMap((cat) => cat.options.map((opt) => ({ cat, opt })))
+    .filter(({ opt }) => opt.image)
+    .slice(0, 4);
+
+  if (picks.length < 4) return null;   // a strip of one or two looks unfinished
+
   return (
     <section className="showcase" aria-label="A few of the gifts">
-      {PICKS.map(look).map((p, i) => (
-        <a key={p.n} className="shot" href={`${href('products')}#${p.id}`}>
-          <Photo
-            src={p.image}
-            alt={p.alt}
-            ratio="4/5"
-            eager={i === 0}
-            sizes="(max-width: 900px) 24vw, 280px"
-          />
-          <span className="shot__name">{p.n}</span>
-          <span className="shot__price">{price(p.price)}{p.unit ? ` ${p.unit}` : ''}</span>
+      {picks.map(({ cat, opt }, i) => (
+        <a key={`${cat.id}-${opt.id}`} className="shot" href={`${href('products')}#${cat.id}`}>
+          <ImageSlot image={imageFor(cat, opt)} eager={i === 0} sizes="(max-width: 900px) 24vw, 280px" />
+          <span className="shot__name">{opt.n}</span>
+          <span className="shot__price">
+            {opt.price != null ? priceWithUnit(opt.price, opt.unit, opt.from) : 'Price on request'}
+          </span>
         </a>
       ))}
     </section>

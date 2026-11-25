@@ -11,14 +11,9 @@ export default function Shipping() {
       <p>I’ll keep you posted on WhatsApp at every step.</p>
       {SITE.deliveryCharge === 'free' && <p>Delivery within {SITE.city} is free.</p>}
       {SITE.deliveryCharge && SITE.deliveryCharge !== 'free' && <p>Delivery within {SITE.city} costs {SITE.deliveryCharge}.</p>}
-      {!SITE.deliveryCharge && (
-        <p className="policy__todo">
-          OWNER TO SUPPLY: the delivery charge. It is the question buyers ask most and
-          the one thing this page does not answer. Set <code>deliveryCharge</code> in
-          src/data/site.js to the figure, or to <code>&apos;free&apos;</code>, and this
-          note is replaced by the real line.
-        </p>
-      )}
+      {/* OWNER TO SUPPLY: deliveryCharge in src/data/site.js (a figure, or 'free').
+          Until then the page says it is agreed in the chat, which is how it works. */}
+      {!SITE.deliveryCharge && <p>Any delivery charge depends on where in {SITE.city} it’s going. You’ll know the exact total in our chat before you pay anything.</p>}
     </PolicyLayout>
   );
 }

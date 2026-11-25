@@ -56,7 +56,7 @@ Screen-reader / accessibility labels (not visible, but read aloud):
 
 | # | Role | File | Current text | New text |
 |---|---|---|---|---|
-| 1.1 | Nav: Home | — | *(removed from the nav; the logo links home)* |  |
+| 1.1 | Nav: Home | `src/routes.jsx` | Home *(first in the nav; the logo also links home)* |  |
 | 1.2 | Nav: Products | `src/routes.jsx` | Gifts |  |
 | 1.3 | Nav: How it works | `src/routes.jsx` | How it works |  |
 | 1.4 | Nav: About | `src/routes.jsx` | My story |  |
@@ -89,16 +89,11 @@ Screen-reader / accessibility labels (not visible, but read aloud):
 
 ### 2.1b Showcase strip (`Showcase.jsx`)
 
-Four real products directly under the hero, each named and priced. The names and
-prices are read live from `src/data/products.js`, so they can never drift from the
-Gifts page; to change which four appear, edit the `PICKS` list in `Showcase.jsx`.
-
-| # | Role | Current text | New text |
-|---|---|---|---|
-| 2.1b.1 | Product 1 (Polaroids) | Big Snaps · ₹45 per print |  |
-| 2.1b.2 | Product 2 (Mugs) | Colour inside mug · ₹329 |  |
-| 2.1b.3 | Product 3 (Keychains) | Photo keychain · ₹159 |  |
-| 2.1b.4 | Product 4 (T-shirts) | Photo tee · ₹649 |  |
+Four products directly under the hero, each named and priced. **Hidden right now**:
+it fills itself from the first four products that have a photo set in
+`src/data/products.js`, and no product photos are switched on yet. Rather than
+show four empty boxes under the hero, it shows nothing, and it appears on its own
+once four photos are added. Names and prices come straight from the catalogue.
 
 ### 2.2 Who's the lucky one (`LuckyOne.jsx`, data in `src/data/people.js`)
 
@@ -117,31 +112,31 @@ Gifts page; to change which four appear, edit the `PICKS` list in `Showcase.jsx`
 | 2.2.11 | BTN on every idea card | Order this on WhatsApp |  |
 | 2.2.12 | Link on every idea card | See all {category in lowercase} |  |
 
-Idea cards (category labels unchanged because they must match product category names):
+Idea cards (the category label must match a category `name` in `src/data/products.js`):
 
 | # | For | Category | Current one-liner | New one-liner |
 |---|---|---|---|---|
-| 2.2.13 | Mum | Polaroids | Fill their fridge with every face they love. |  |
-| 2.2.14 | Mum | Paintings and prints | Your baby photo, framed. Keep tissues ready. For both of you. |  |
-| 2.2.15 | Mum | Mugs | They’ve poured chai for everyone. Now pour them one with their name on it. |  |
+| 2.2.13 | Mum | Mugs | They’ve poured chai for everyone. Now pour them one with their name on it. |  |
+| 2.2.14 | Mum | Calendars | Twelve months of the family, on the wall by the kitchen. |  |
+| 2.2.15 | Mum | Pillows | Your baby photo, on something soft. Keep tissues ready. For both of you. |  |
 | 2.2.16 | Dad | Mugs | They’ll never say it. They’ll just drink from it every morning. |  |
 | 2.2.17 | Dad | Keychains | Car keys. House keys. And you. |  |
-| 2.2.18 | Dad | Paintings and prints | The photo they’re secretly proudest of, where they can see it daily. |  |
-| 2.2.19 | Partner | Phone cases | Be the face in their hand a hundred times a day. |  |
-| 2.2.20 | Partner | Paintings and prints | Two people. One painting. A love story worth hanging up. |  |
-| 2.2.21 | Partner | Polaroids | Every date so far, in one little stack. For the days you’re apart. |  |
-| 2.2.22 | Best friend | Mugs | The inside joke only the two of you will ever get. |  |
-| 2.2.23 | Best friend | T-shirts and hoodies | Their worst photo, on a T-shirt. Pure love. |  |
-| 2.2.24 | Best friend | Keychains | A tiny you, on their keys. Forever. |  |
+| 2.2.18 | Dad | Photo frames | The photo they’re secretly proudest of, where they can see it every day. |  |
+| 2.2.19 | Partner | Magazines | A whole magazine about them. They are the cover story. |  |
+| 2.2.20 | Partner | Pillows | A heart-shaped pillow for the nights one of you is away. |  |
+| 2.2.21 | Partner | Magic mirror | A mirror that lights up with the two of you. |  |
+| 2.2.22 | Best friend | Clothing | Their worst photo, on a T-shirt. Pure love. |  |
+| 2.2.23 | Best friend | Mugs | The inside joke only the two of you will ever get. |  |
+| 2.2.24 | Best friend | Fridge magnets | Your face on their fridge. Every midnight snack, a reminder. |  |
 | 2.2.25 | Sibling | Phone cases | A childhood photo. Maximum embarrassment. Maximum love. |  |
-| 2.2.26 | Sibling | Mugs | “Mum’s favourite.” Now it’s official. |  |
-| 2.2.27 | Sibling | T-shirts and hoodies | Matching hoodies. Because nobody gets you like they do. |  |
+| 2.2.26 | Sibling | Clothing | Matching hoodies. Because nobody gets you like they do. |  |
+| 2.2.27 | Sibling | Polaroids | Every family trip, in one small stack they can keep. |  |
 | 2.2.28 | Colleague | Mugs | Their own mug on the desk. Proof someone noticed. |  |
-| 2.2.29 | Colleague | Keychains | A goodbye they’ll carry into the next chapter. |  |
-| 2.2.30 | Colleague | Polaroids | The whole team, in their hands, on their last day. |  |
-| 2.2.31 | Teacher | Paintings and prints | A whole class in one frame. And a thank-you they’ll keep forever. |  |
-| 2.2.32 | Teacher | Mugs | For the teacher who believed in you. Warm chai, warmer thanks. |  |
-| 2.2.33 | Teacher | Polaroids | A year of small moments, handed back with a thank-you. |  |
+| 2.2.29 | Colleague | Calendars | A desk calendar of the whole team, for the year they’re gone. |  |
+| 2.2.30 | Colleague | Keychains | A goodbye they’ll carry into the next chapter. |  |
+| 2.2.31 | Teacher | Photo frames | A whole class in one frame, and a thank-you they’ll keep. |  |
+| 2.2.32 | Teacher | Glass frames | The class photo on glass, for the desk they taught from. |  |
+| 2.2.33 | Teacher | Mugs | For the teacher who believed in you. Warm chai, warmer thanks. |  |
 
 "Not sure yet" shows a help card instead:
 
@@ -160,20 +155,27 @@ Idea cards (category labels unchanged because they must match product category n
 | 2.3.4 | P #2 | No online checkout. You pay on WhatsApp once you love the preview, and the rest when it’s in your hands. |  |
 | 2.3.5 | H2 #3 | Say yes today. See them smile tomorrow. |  |
 | 2.3.6 | P #3 | I check every piece myself and hand-deliver it across Pune within 24 hours. Your photos are deleted after. |  |
+| 2.3.7 | H3 over the safety net | And if something goes wrong |  |
+| 2.3.8 | Net #1 (bold + text + link) | **Arrives damaged, or not as approved?** Send a photo within 24 hours. I reprint it or refund it. *Refund policy* |  |
+| 2.3.9 | Net #2 | **Changed your mind?** Cancel any time before printing for a full refund. *Refund policy* |  |
+| 2.3.10 | Net #3 | **Worried about scams?** I never ask for card details or OTPs. You pay only after you’ve seen your design. *Terms* |  |
 
-### 2.4 Six ways (`Categories.jsx`, data in `src/data/products.js`)
+The three net lines repeat promises from the policy pages (9.5, 9.8, 9.21b). Change both together.
+
+### 2.4 The gifts shelf (`Categories.jsx`, data in `src/data/products.js`)
+
+All thirteen categories on one sideways-scrolling shelf, each tile linking to its
+card on the Gifts page. Tile names and "From ₹…" prices come from the catalogue.
 
 | # | Role | Current text | New text |
 |---|---|---|---|
-| 2.4.1 | **H2** | Six ways to say **“you matter to me.”** |  |
+| 2.4.1 | **H2** | Thirteen ways to say **“you matter to me.”** |  |
 | 2.4.2 | LINK | See them all |  |
-| 2.4.9 | Line under the grid (the one place on Home that offers the off-catalogue route) | Not in the catalogue? I’ll make it. **Request a gift** |  |
-| 2.4.3 | Card 1: name / tagline | Mugs / Every morning, a little reminder of you. |  |
-| 2.4.4 | Card 2: name / tagline | Keychains / The smallest way to stay close. |  |
-| 2.4.5 | Card 3: name / tagline | Paintings and prints / Memories that deserve a wall. |  |
-| 2.4.6 | Card 4: name / tagline | Polaroids / Little squares of “remember when.” |  |
-| 2.4.7 | Card 5: name / tagline | T-shirts and hoodies / Wear the memory. Wear the joke. |  |
-| 2.4.8 | Card 6: name / tagline | Phone cases / Seen a hundred times a day. Felt every time. |  |
+| 2.4.3 | Arrow buttons (screen-reader labels) | Show earlier gifts / Show more gifts |  |
+| 2.4.4 | Tile price, when a category has a price | From ₹{lowest} |  |
+| 2.4.5 | Tile price, when it has none yet | Price on request |  |
+| 2.4.6 | Inside each tile, until it has a photo | 01…13 and the category's `line` from `products.js` (e.g. “Their name in their hands, every single morning.”) |  |
+| 2.4.9 | Line under the shelf | Not in the catalogue? I’ll make it. **Request a gift** |  |
 
 ### 2.5 Process (`Process.jsx`)
 
@@ -187,6 +189,17 @@ Idea cards (category labels unchanged because they must match product category n
 | 2.5.6 | Step 2 P | Change anything until it feels exactly right. Then pay 70%. |  |
 | 2.5.7 | Step 3 H3 | Ding-dong. Smile unlocked. |  |
 | 2.5.8 | Step 3 P | At their door within 24 hours. Pay the last 30% when it’s in your hands. |  |
+| 2.5.9 | Chat header | Deevan, Cheer Up / Pune |  |
+| 2.5.10 | Chat, you | Hi! My best friend’s birthday is tomorrow. Help? |  |
+| 2.5.11 | Chat, me | Happy to. Tell me three things about them. |  |
+| 2.5.12 | Chat, you | Chai addict. Always late. Our Goa trip photo is their favourite. |  |
+| 2.5.13 | Chat, me (with a preview card: FREE PREVIEW / Still late. Still loved.) | A magic mug: the Goa photo appears when the chai goes in. Here’s your free preview. |  |
+| 2.5.14 | Chat, you | I love it. Can the words be bigger? |  |
+| 2.5.15 | Chat, me | Done. Pay 70% once you’re happy. Nothing prints before that. |  |
+| 2.5.16 | Chat, you | Paid. Thank you! |  |
+| 2.5.17 | Chat, me | At their door tomorrow. The last 30% is paid when it arrives. |  |
+| 2.5.18 | Caption under the chat | An example of how an order goes. |  |
+| 2.5.19 | Button, after the chat ends | Play it again |  |
 
 ### 2.6 Founder teaser (`FounderTeaser.jsx`)
 
@@ -196,6 +209,10 @@ Idea cards (category labels unchanged because they must match product category n
 | 2.6.2 | P | I design it, check it and deliver it myself. Your gift carries your feelings, and I treat it that way. |  |
 | 2.6.3 | Signature | Deevan, founder |  |
 | 2.6.4 | LINK | Meet the person behind it |  |
+| 2.6.5 | Gift tag, label | A note from me |  |
+| 2.6.6 | Gift tag, message | Every message is read by me, on my phone. Ask me anything before you pay a rupee. |  |
+| 2.6.7 | Gift tag, signature | — Deevan |  |
+| 2.6.8 | Gift tag, rows | WhatsApp +91 9505 9696 70 / Email cheerup.smiled@gmail.com / Based in Pune |  |
 
 ### 2.7 Final call to action (`FinalCta.jsx`)
 
@@ -207,53 +224,76 @@ Idea cards (category labels unchanged because they must match product category n
 
 ---
 
-## 3. Products page (`src/pages/products/Products.jsx`, data `src/data/products.js`)
+## 3. Gifts page (`src/pages/products/Products.jsx` and `GiftCard.jsx`, data `src/data/products.js`)
+
+One card per category. Inside each card the visitor picks a style, shape or size;
+the description and the price under it change with the choice.
 
 Page frame:
 
 | # | Role | Current text | New text |
 |---|---|---|---|
 | 3.1 | **H1** | Pick a gift. **Pour your heart into it.** |  |
-| 3.2 | Sub P | Six kinds of gift, fourteen ways to say what words can’t. Prices from ₹35. |  |
-| 3.3 | BTN on every product | Personalise this |  |
-| 3.4 | LINK on every product | Ask about this |  |
-| 3.5 | Price on every product | ₹269 … ₹759, and ₹35 per print / ₹45 per print for Polaroids |  |
-| 3.6 | Bottom band P | Can’t decide? Tell me about them. I’ll find the feeling. |  |
-| 3.7 | Bottom band BTN | Chat on WhatsApp |  |
-| 3.31 | Jump chips above the sections | Mugs / Keychains / Paintings and prints / Polaroids / T-shirts and hoodies / Phone cases |  |
-| 3.32 | Line at the foot of the page | Not in the catalogue? I’ll make it. **Request a gift** |  |
+| 3.2 | Lead (the price carries the marker highlight) | Thirteen kinds of gift, each one made for a single person. **Prices from ₹35.** |  |
+| 3.3 | BTN on every card | Personalise this |  |
+| 3.4 | LINK on every card | Ask about this |  |
+| 3.5 | Price, when not set yet | Price on request |  |
+| 3.6 | Price, for a range | From ₹649 |  |
+| 3.7 | Chooser label | Style / Shape / Size / Finish |  |
+| 3.8 | Bottom panel P | Can’t decide? Tell me about them. I’ll find the feeling. |  |
+| 3.9 | Bottom panel BTN | Chat on WhatsApp |  |
+| 3.10 | Line at the foot | Not in the catalogue? I’ll make it. **Request a gift** |  |
 
-Categories (all six are now stacked on the page; the chips above jump to them):
+Categories, in order:
 
-| # | Category | Current intro line | New intro line |
+| # | Category | Card line | New line |
 |---|---|---|---|
-| 3.8 | Mugs | Their name, in their hands, every single morning. |  |
-| 3.9 | Keychains | Small enough to carry everywhere. That’s the whole point. |  |
-| 3.10 | Paintings and prints | The photo you keep going back to deserves a wall of its own. |  |
-| 3.11 | Polaroids | Your camera roll, finally something they can hold. |  |
-| 3.12 | T-shirts and hoodies | A gift they’ll wear close, not fold away. |  |
-| 3.13 | Phone cases | What they hold all day will now hold you too. |  |
+| 3.11 | Mugs | Their name in their hands, every single morning. |  |
+| 3.12 | Photo frames | The photo you keep going back to, given a wall of its own. |  |
+| 3.13 | Polaroids | Your camera roll, finally something they can hold. |  |
+| 3.14 | Fridge magnets | The first thing they see every time they open the fridge. |  |
+| 3.15 | Phone cases | Seen a hundred times a day. Felt every time. |  |
+| 3.16 | Pillows | Something soft to hold on the nights you are not there. |  |
+| 3.17 | Calendars | Twelve months of them, one page at a time. |  |
+| 3.18 | Keychains | The smallest way to stay close. |  |
+| 3.19 | Glass frames | A photo printed on glass, with the light coming through it. |  |
+| 3.20 | Magic mirror | A mirror, until the light comes on. Then it is them. |  |
+| 3.21 | Cube box | Lift the lid, and there they are. |  |
+| 3.22 | Magazines | A whole magazine about one person. They are the cover story. |  |
+| 3.23 | Clothing | A gift they will wear close, not fold away. |  |
 
-Products (names unchanged because they are matching keys):
+Options (the chip shows the short name; the card and the WhatsApp message use the full one):
 
-| # | Category | Current name | Current description | New name | New description |
+| # | Category | Option | Price | Line | New line |
 |---|---|---|---|---|---|
-| 3.14 | Mugs | Classic white mug | Your photo, wrapped around white ceramic. Every sip feels like a hug. |  |  |
-| 3.15 | Mugs | Colour inside mug | White outside, a burst of colour inside and on the handle. Just like them. |  |  |
-| 3.16 | Mugs | Magic mug | Looks plain until the chai hits. Then your memory appears. |  |  |
-| 3.17 | Keychains | Photo keychain | A favourite memory, always in their pocket. |  |  |
-| 3.19 | Keychains | Two-sided keychain | Two sides. Two memories. Two reasons to smile. |  |  |
-| 3.20 | Paintings and prints | Framed photo print | Printed, framed, ready to hang or stand. The moment never fades. |  |  |
-| 3.21 | Paintings and prints | Painted portrait | Your photo, painted. Someone’s going to tear up. |  |  |
-| 3.22 | Paintings and prints | Collage print | All the favourite moments. One frame. |  |  |
-| 3.23 | Polaroids | Mini Snaps | Pocket-sized Polaroids for a stack, a wallet or a love letter. |  |  |
-| 3.24 | Polaroids | Big Snaps | Large Polaroids for walls, fridges and gift boxes. Memories, on display. |  |  |
-| 3.25 | T-shirts and hoodies | Photo tee | Your photo, printed big on soft cotton. A memory they can wear. |  |  |
-| 3.26 | T-shirts and hoodies | Words tee | A name, a line or a joke only your gang gets. |  |  |
-| 3.28 | Phone cases | Soft case | One photo, edge to edge. Your favourite moment, always with them. |  |  |
-| 3.29 | Phone cases | Hard case | A name or initials on a clean colour. Simple. Personal. Theirs. |  |  |
-
-Prices live as plain numbers in `src/data/products.js`; `src/lib/money.js` adds the ₹ and the Indian grouping. A variant with a `unit` (the two Polaroids) prints it after the price. **Name keychain, Custom hoodie and Collage case are not on the site** (no photo and/or commented out in the data file). Each variant also carries an `alt:` line describing its photo.
+| 3.30 | Mugs | Classic mug | ₹269 | Your photo, wrapped all the way round white ceramic. |  |
+| 3.31 | Mugs | Colour-inside mug | ₹329 | White outside, a burst of colour inside and on the handle. |  |
+| 3.32 | Mugs | Heart holder mug | ₹559 | The handle is a heart. Every time they pick it up, they are holding yours. |  |
+| 3.33 | Mugs | Tea mug | on request | Sized for chai, for the one who never says no to a cup. |  |
+| 3.34 | Mugs | Magic mug | ₹539 | Plain and dark until the chai goes in. Then the memory appears. |  |
+| 3.35 | Photo frames | 4 in to 32 in (slider) | on request | ≤8 in: Desk size. Sits beside them while they work. / 10–16 in: Shelf size. The one every guest picks up. / 20 in and up: Wall size. The photo the whole room is about. |  |
+| 3.36 | Polaroids | Mini Snaps | ₹35 per print | Pocket-sized. For a stack, a wallet, or tucked into a letter. |  |
+| 3.37 | Polaroids | Big Snaps | ₹45 per print | For fridges, walls, and the inside of a gift box. |  |
+| 3.38 | Fridge magnets | Heart magnet | on request | For the fridge of someone you love out loud. |  |
+| 3.39 | Fridge magnets | Square magnet | on request | Clean edges, the whole photo, nothing cropped. |  |
+| 3.40 | Fridge magnets | Round magnet | on request | A little round window into a good day. |  |
+| 3.41 | Phone cases | Soft case | ₹369 | One photo, edge to edge, with a glossy finish. |  |
+| 3.42 | Phone cases | Hard case | ₹329 | A name or initials on a clean, matte colour. |  |
+| 3.43 | Pillows | Heart pillow | on request | For a partner, an anniversary, a long distance. |  |
+| 3.44 | Pillows | Square pillow | on request | For the sofa, with a photo everyone sits beside. |  |
+| 3.45 | Calendars | One-sided calendar | on request | A photo for every month, on their desk all year. |  |
+| 3.46 | Calendars | Two-sided calendar | on request | Printed on both sides, so there are twice the photos. |  |
+| 3.47 | Keychains | Heart keychain | ₹159 | A favourite memory, always on their keys. |  |
+| 3.48 | Keychains | Violin keychain | on request | For the one who plays, or the one who listens. |  |
+| 3.49 | Keychains | Square keychain | on request | Clean and simple. The photo does the talking. |  |
+| 3.50 | Keychains | Round keychain | on request | A small round memory that goes everywhere they go. |  |
+| 3.51 | Glass frames | Glass photo frame | on request | Stands on a desk or a shelf and catches the window light. |  |
+| 3.52 | Magic mirror | Magic mirror | on request | Looks like an ordinary mirror. Switch it on and the photo glows through. |  |
+| 3.53 | Cube box | Cube box | on request | A small box that opens on photos, a note, and a name. |  |
+| 3.54 | Magazines | Personal magazine | on request | Their photos, their stories, their name across the top. |  |
+| 3.55 | Clothing | T-shirt | from ₹649 | Their photo or your inside joke, printed on soft cotton. |  |
+| 3.56 | Clothing | Hoodie | on request | Warm, heavy, and the next best thing to a hug. |  |
+| 3.57 | Clothing | Polo T-shirt | on request | A name stitched small on the chest. Quietly theirs. |  |
 
 ---
 
@@ -409,7 +449,8 @@ Shared on all four:
 | 9.10 | P1 | I deliver only within Pune for now. |  |
 | 9.11 | P2 | Once your design is approved and the advance is paid, your gift is printed, personally quality-checked and hand-delivered, usually within 24 hours. |  |
 | 9.12 | P3 | I’ll keep you posted on WhatsApp at every step. |  |
-| 9.13 | P4 | *(removed: it repeated 9.10)* — replaced by the delivery charge line, which appears only once `deliveryCharge` is set in `src/data/site.js`. Until then the page shows an OWNER TO SUPPLY note. |  |
+| 9.13 | P4 | *(removed: it repeated 9.10)* — replaced by the delivery charge line, which appears only once `deliveryCharge` is set in `src/data/site.js`. Until then the page shows 9.13b. |  |
+| 9.13b | P4, until `deliveryCharge` is set | Any delivery charge depends on where in Pune it’s going. You’ll know the exact total in our chat before you pay anything. |  |
 
 **Privacy** (`Privacy.jsx`)
 
@@ -420,7 +461,8 @@ Shared on all four:
 | 9.16 | P2 | I use this only to design, print and deliver your gift, and share it only with the vendor printing your order. I don’t sell or share your information with anyone else. |  |
 | 9.17 | P3 | **After delivery I delete your photos and details from my phone, my files and our WhatsApp chat.** I don’t keep copies. |  |
 | 9.17b | P4 | WhatsApp is run by Meta; their privacy policy covers messages sent through it. |  |
-| 9.18 | P4 | Questions about your data? Write to cheerup.smiled@gmail.com. |  |
+| 9.17c | P5 | This website uses Google Analytics to count visits and see which pages people read, so I know what to improve. It uses cookies for that, and records no names, numbers or photos. You can block it with any ad or tracker blocker, and the site works the same. |  |
+| 9.18 | P6 | Questions about your data? Write to cheerup.smiled@gmail.com. |  |
 
 **Terms of service** (`Terms.jsx`)
 
@@ -430,7 +472,8 @@ Shared on all four:
 | 9.19b | Extra P, only once `legalName` / `jurisdiction` are set in `src/data/site.js` | Cheer Up is run by {legal name}… / Any dispute is subject to the courts of {city}. |  |
 | 9.20 | P1 | Cheer Up is run by a single founder in Pune. All orders are placed and confirmed over WhatsApp. |  |
 | 9.21 | P2 | Production begins only after you approve a free design preview and pay 70% of the order value in advance. The remaining 30% is due on delivery. |  |
-| 9.22 | P3 | Prices and delivery times may change without notice. |  |
+| 9.21b | P3 | Payment is made over WhatsApp, and only after you approve your design. I will never ask for your card details, PIN or OTP. |  |
+| 9.22 | P4 | Prices and delivery times may change without notice. |  |
 | 9.23 | P4 | I reserve the right to decline an order I can’t fulfil to my quality standard. |  |
 
 ---
@@ -489,7 +532,7 @@ These are what the customer's chat opens with. `{...}` parts are filled in autom
 
 ## 13. Placeholder text
 
-**There is none left.** Every "Photo: …" string is gone:
+**There is none left.** No "OWNER TO …" note is shown on any page any more (they are code comments now). Every "Photo: …" string is gone:
 
 | # | Where | Was | Now |
 |---|---|---|---|
@@ -514,9 +557,9 @@ If any of these change, update every place:
 - **Free preview before paying.** Appears in 2.1.6, 2.3, 4.5, 11.10, 9.21.
 - **Photos deleted after delivery.** Appears in 2.1.9, 2.3, 4.16, 7.13, 8.12, 9.17, 11.10.
 - **Cancellation until printing starts.** Appears in 7.16, 9.5 to 9.7.
-- **Six categories, fourteen products.** Appears in 2.4.1 and 3.2. Change one and change the other.
+- **Thirteen categories.** Appears in 2.4.1, 3.2 and the Gifts page description (17.2). Change one and change the others.
 - **Three steps on Home, seven on How it works.** 2.5.1 and 4.2 have to agree: the How page says four of the seven are yours.
-- **Prices.** ₹35 is the lowest (a Mini Snap, per print) and ₹759 the highest. It appears in 3.2, in the `priceRange` of the search listing (`src/lib/head.js`) and in the Gifts page description (`src/routes.jsx`).
+- **Prices.** ₹35 is the lowest (a Mini Snap, per print). It is read from the catalogue for 3.2 and the search listing, so it updates itself; it is typed by hand only in the Gifts page description (17.2).
 
 ---
 
@@ -565,8 +608,8 @@ Keep descriptions at 155 characters or fewer, or Google cuts them off.
 
 | # | Page | URL | Title | Description | New |
 |---|---|---|---|---|---|
-| 17.1 | Home | `/` | Personalised gifts in Pune, delivered in 24 hours \| Cheer Up | Personalised mugs, prints, Polaroids, keychains and tees, made for one person and hand-delivered across Pune in 24 hours. Free preview before you pay. |  |
-| 17.2 | Gifts | `/gifts` | Personalised mugs, prints, Polaroids and more \| Cheer Up Pune | Six kinds of personalised gift: mugs, keychains, prints, Polaroids, tees and phone cases. Prices from ₹35. Ordered on WhatsApp, delivered in Pune. |  |
+| 17.1 | Home | `/` | Personalised gifts in Pune, delivered in 24 hours \| Cheer Up | Personalised mugs, frames, pillows, calendars, magazines and more, made for one person and hand-delivered across Pune in 24 hours. Free preview first. |  |
+| 17.2 | Gifts | `/gifts` | Personalised mugs, frames, pillows and more \| Cheer Up Pune | Thirteen kinds of personalised gift: mugs, frames, Polaroids, magnets, pillows, calendars, magazines, magic mirrors and more. From ₹35, in Pune. |  |
 | 17.3 | Request a gift | `/request` | Request a custom gift \| Cheer Up Pune | Not in the catalogue? Describe the gift you want and I will make it and deliver it in Pune. Team orders, wedding favours and one-off ideas welcome. |  |
 | 17.4 | How it works | `/how-it-works` | How ordering works \| Cheer Up | Seven steps from your first message to their doorbell. A free design preview, 70% after you approve, 30% at the door. All on WhatsApp. |  |
 | 17.5 | My story | `/my-story` | Meet Deevan, founder \| Cheer Up | Cheer Up is one person in Pune. I read your message, design your gift, check it by hand and deliver it myself. Small on purpose. |  |

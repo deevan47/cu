@@ -73,7 +73,7 @@ npm run og         # rebuilds public/og.jpg, the WhatsApp/Google share picture
 | I want to change | Edit |
 |---|---|
 | WhatsApp number, phone, email, founder name, city, year | `src/data/site.js` |
-| Prices, product names, descriptions, photo alt text | `src/data/products.js` (prices are plain numbers; `lib/money.js` adds the ₹) |
+| Products, options, prices, photos | `src/data/products.js` (prices are plain numbers, `null` shows "Price on request"; `lib/money.js` adds the ₹) |
 | "Who's the lucky one?" gift ideas | `src/data/people.js` |
 | The 7 "How it works" steps | `src/data/steps.js` |
 | Reviews and the delivered-gifts gallery | `src/data/reviews.js` (empty on purpose until there are real ones) |
@@ -83,17 +83,23 @@ npm run og         # rebuilds public/og.jpg, the WhatsApp/Google share picture
 | A page's layout or wording | its folder in `src/pages/` |
 | A page's styling | the `.css` file in the same folder |
 | Menu order, page URLs, page titles and search descriptions | `src/routes.jsx` |
+| Google Analytics ID | `index.html` (the two `<script>` tags at the top of `<head>`) |
 | Legal name, jurisdiction, delivery charge | `src/data/site.js` (all three are `null` until you fill them in) |
 | **All wording at once** (improve copy in a table, then apply) | `COPY.md` (lists every line and the file it lives in) |
 
-**Add a real photo**
-1. Copy the image into `public/photos/` (e.g. `mug.jpg`). 1200px wide or more, 4:5, is ideal.
-2. Run `npm run images`. That writes the WebP variants and records the real pixel
-   size in `src/data/images.js`, which is what gives every `<img>` its `srcset`
-   and its `width`/`height`.
-3. Set `image: 'photos/mug.jpg'` and an `alt:` describing it, on a category or
-   variant in `src/data/products.js`.
-4. If a photo is missing, nothing is drawn. There are no placeholder boxes.
+**Add a product photo**
+Every product currently has an empty image space, waiting for your photos.
+1. Copy the image into `public/photos/`. Portrait, 4:5, 1200px wide or more fits
+   the space exactly; anything else is cropped to fill it.
+2. In `src/data/products.js`, find the product. Beside its `image: null` is a
+   comment suggesting a file name (e.g. `public/photos/mugs-magic.jpg`). Change it
+   to `image: 'photos/mugs-magic.jpg'` and write a short `alt:` saying what the
+   photo shows.
+3. Run `npm run images`, which makes the fast resized versions and records the
+   photo's real size.
+4. A photo set on the **category** (the `image` beside `name`) appears on its Home
+   page tile, and in any of its products that has no photo of its own.
+The Home strip under the hero switches itself on once four products have photos.
 
 **Add a page**
 1. Create `src/pages/mypage/MyPage.jsx` (and an optional `MyPage.css`).
@@ -249,3 +255,37 @@ Add a line here every time something changes.
   Worth knowing for next time: this never showed up in the build, in a lint pass, or in a single click, which is why the first round of checks missed it. It only appeared when several rows were toggled in a row.
 
   Re-checked afterwards on all twelve pages: all 14 order-sheet panels open and close, all 8 people tabs switch, the 6 jump chips resolve, the copy button works, the Request form builds a correct message, the phone menu opens with the page behind it inert and Escape returns focus to the toggle, and there are no contrast failures and no horizontal overflow at 1440px or 375px.
+
+- **2026-11-25 (the full range: thirteen categories)** The catalogue now holds the complete range you listed, in your order: Mugs, Photo frames, Polaroids, Fridge magnets, Phone cases, Pillows, Calendars, Keychains, Glass frames, Magic mirror, Cube box, Magazines, Clothing.
+
+  *One card per category.* Thirty-odd options as separate cards would be a wall of near-identical boxes, so each category is one card where you choose inside it: chips for style, shape or finish (radio buttons underneath, so a screen reader hears "Shape, radio group, 1 of 3"), and a slider for Photo frames, where ten sizes from 4 to 32 in are a range rather than a row of buttons. The description and price under the chooser change with the choice, with a short fade. "Personalise this" opens the order sheet already set to the option you picked. Code in `src/pages/products/GiftCard.jsx`.
+
+  *The jump row follows you.* On the Gifts page the sticky row of thirteen chips lights up the category on screen and, on a phone, slides sideways to keep it in view. A clicked chip stays lit even when it is the third card in a row.
+
+  *Home shows all thirteen on one shelf* that scrolls sideways (`src/pages/home/Categories.jsx`), with arrows that dim at each end, instead of a grid that would have been seven rows on a phone. Home got shorter as a result.
+
+  *No images yet, by request.* Every product has an empty image space with a comment in `src/data/products.js` naming the file to add (see "Add a product photo" above). The empty space is a plain sand panel at the final size, so adding a photo later changes nothing around it. The ten older photos are noted beside the products they belong to, but are not switched on, because they show the Cheer Up logo instead of a customer's photo or name. The Home strip under the hero hides itself until four products have photos, rather than showing four empty boxes.
+
+  *Prices.* Only the ones already set are shown: classic ₹269, colour-inside ₹329, heart holder ₹559, magic ₹539 mugs; Mini Snaps ₹35 and Big Snaps ₹45 per print; soft ₹369 and hard ₹329 cases; heart keychain ₹159; T-shirt from ₹649 (words ₹649, photo ₹679). Everything else says "Price on request" until a number is set. The heart holder mug and the T-shirt prices come from your own edits to `CHEERUP-EXPLAINED.md`. The search listing's price range now reads "From ₹35" from the catalogue instead of a typed-in range that had gone stale.
+
+  *Dropped:* the two-sided keychain, painted portrait and collage print are not in the new list, so they are off the site. The "Who's on your mind" ideas were rewritten to draw on the new range (pillows, calendars, magazines, the magic mirror).
+
+  Checked at 1440px and 375px: no horizontal overflow, no text below 4.5:1, every chip option and slider size exercised, no runtime errors.
+
+- **2026-11-25 (trust, Google Analytics, and a livelier Home)**
+
+  *Google Analytics is on* (`index.html`, ID G-T0KSG26KWF). The snippet as pasted loaded `gtm.js`, which is for Tag Manager IDs (`GTM-…`), and had no `gtag('config', …)` line, so it would have recorded nothing. It now loads `gtag/js` and configures the ID. Page changes inside the site are counted by GA4's enhanced measurement (on by default); the router sets the new page's title just before the URL changes, so each view is recorded under the right page name. The Privacy page now says the site uses Google Analytics. Analytics measures visits; it does not by itself improve search ranking. For Google search, add the site in Google Search Console.
+
+  *Internal notes are off the live site.* The Privacy, Terms and Delivery pages showed "OWNER TO SUPPLY / OWNER TO CHECK" boxes to every visitor, including "Right now a buyer cannot tell who they are contracting with". They are code comments now. Until a delivery charge is set, the Delivery page says the total is agreed in the chat before anything is paid.
+
+  *Trust, using only true things.* There are no reviews or product photos yet, so nothing was invented:
+  - Under "The deal": a new "And if something goes wrong" row (damaged or wrong: reprint or refund; cancel before printing: full refund; never asked for card details or OTPs), each linked to its policy. The no-OTP line was added to the Terms page too.
+  - Beside the founder text: a gift-tag note card with the WhatsApp number, email and city.
+
+  *Livelier, without photos.*
+  - "How it works" now plays an example WhatsApp order, message by message with a typing indicator, when it scrolls into view. The step it has reached lights up on the left, and it is labelled on screen as an example. Screen readers get the full transcript instead of the animation, and with reduced motion the whole chat shows at once.
+  - The empty image spaces now carry a note until a photo arrives: on the Home shelf, each gift's one line (the card turns orange under the pointer); on the Gifts page, the chosen shape drawn (heart, square, round), or for Photo frames an outline that grows and shrinks to scale as you move the size slider. A photo replaces the note automatically.
+  - Home is back in the nav, first, and the logo still links home.
+
+  Checked at 1440px and 375px: no horizontal overflow, no internal notes on any page, no console errors or hydration warnings on the production build, and the Google tag on every pre-rendered page.
+

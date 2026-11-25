@@ -2,6 +2,17 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <!-- Google Analytics (GA4). The ID is the measurement ID from Analytics >
+         Admin > Data streams. Page views on in-site navigation are recorded by GA4's
+         "Enhanced measurement > Page changes based on browser history events", which
+         is on by default, so the router does not send them itself. -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T0KSG26KWF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-T0KSG26KWF');
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#FAF5EF" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

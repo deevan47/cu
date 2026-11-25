@@ -77,6 +77,8 @@ export function interceptLinks(onNavigate) {
     if (findRoute(key).path !== normalise(url.pathname)) return;   // not one of our pages
     if (normalise(url.pathname) === normalise(window.location.pathname)) return;  // same page
     e.preventDefault();
+    // title first: Google Analytics records the page view at the moment of pushState
+    document.title = findRoute(key).title;
     window.history.pushState(null, '', url.pathname + url.hash);
     onNavigate(key, url.hash);
   };

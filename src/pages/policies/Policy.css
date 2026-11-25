@@ -6,10 +6,6 @@
 .policy__body { display: flex; flex-direction: column; gap: var(--s4); font-size: var(--fs-body); line-height: 1.7; }
 .policy__body p { margin: 0; }
 .policy__body a { text-underline-offset: 5px; }
-.policy__todo {
-  border-left: 3px solid var(--brand); background: var(--sand); padding: var(--s4);
-  font-size: var(--fs-sm); color: var(--dark);
-}
 .policy__others {
   margin-top: var(--s7); padding-top: var(--s5); border-top: 1px solid var(--line);
   display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--s5); font-size: var(--fs-sm);

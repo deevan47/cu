@@ -4,7 +4,7 @@
 //   - the browser, via applyHead() on every page change
 //   - scripts/prerender.mjs, via headTags() to write the same tags into the static HTML
 // Keep it pure: headTags() must not touch the DOM.
-import { CATS } from '../data/products';
+import { CATS, imageFor, lowestPrice } from '../data/products';
 import { ROUTES } from '../routes';
 import { SITE } from '../data/site';
 
@@ -23,32 +23,46 @@ function localBusinessJsonLd() {
     image: OG_IMAGE,
     telephone: SITE.phoneDisplay,
     email: SITE.email,
-    priceRange: '₹35–₹759',
+    // Read from the catalogue rather than typed in, so it cannot go stale. Only a
+    // floor: most prices are still to be set, and the top end would be a guess.
+    priceRange: `From ₹${lowestPrice()}`,
     address: { '@type': 'PostalAddress', addressLocality: SITE.city, addressRegion: 'Maharashtra', addressCountry: 'IN' },
     areaServed: { '@type': 'City', name: SITE.city },
   };
 }
 
-/** One Product + Offer per variant, for the Gifts page. */
+/**
+ * One Product per option that has a price, for the Gifts page.
+ *
+ * Options without a price are left out entirely: an Offer with no price is
+ * invalid structured data, and Google would flag the page for it. They join the
+ * listing on their own as soon as a price is set in data/products.js. Same for
+ * the image: included only once a real photo has been added.
+ */
 function productsJsonLd() {
   return CATS.flatMap((c) =>
-    c.variants.map((v) => ({
-      '@context': 'https://schema.org',
-      '@type': 'Product',
-      name: v.n,
-      category: c.name,
-      description: v.d,
-      image: `${ORIGIN}/${v.image}`,
-      brand: { '@type': 'Brand', name: SITE.name },
-      offers: {
-        '@type': 'Offer',
-        price: v.price,
-        priceCurrency: 'INR',
-        availability: 'https://schema.org/InStock',
-        areaServed: SITE.city,
-        url: `${ORIGIN}/gifts`,
-      },
-    })),
+    c.options
+      .filter((o) => o.price != null)
+      .map((o) => {
+        const img = imageFor(c, o);
+        return {
+          '@context': 'https://schema.org',
+          '@type': 'Product',
+          name: o.n,
+          category: c.name,
+          description: o.d,
+          ...(img ? { image: `${ORIGIN}/${img.src}` } : {}),
+          brand: { '@type': 'Brand', name: SITE.name },
+          offers: {
+            '@type': 'Offer',
+            price: o.price,
+            priceCurrency: 'INR',
+            availability: 'https://schema.org/InStock',
+            areaServed: SITE.city,
+            url: `${ORIGIN}/gifts/#${c.id}`,
+          },
+        };
+      }),
   );
 }
 

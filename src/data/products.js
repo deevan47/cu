@@ -1,89 +1,285 @@
-// The catalogue. One place for names, prices, photos and alt text.
+// THE CATALOGUE. Thirteen kinds of gift, in the order the owner listed them.
 //
-// `price` is a plain number in rupees; lib/money.js adds the ₹ and the grouping.
-// `unit` is for anything not sold as one item, so "₹35" can never be mistaken for
-// the price of a pack.
-// `alt` describes what the photo shows, for anyone who cannot see it.
+// ─── ADDING PHOTOS ────────────────────────────────────────────────────────────
+// Every product has an empty image space on the site right now, on purpose.
+// To fill one:
+//   1. Put the file in  public/photos/  (any name; the comment beside each
+//      product suggests one, so the folder stays tidy).
+//   2. Change that product's  image: null  to  image: 'photos/your-file.jpg'
+//   3. Write a short  alt:  describing what the photo shows, for people who
+//      cannot see it ("White mug printed with a couple's photo").
+//   4. Run  npm run images  so the site gets the fast, resized versions.
+// A photo set on the CATEGORY (the `image` next to `name`) is used on the Home
+// page tile, and for any product in that category that has no photo of its own.
+// Portrait photos at 4:5 fit the space exactly; anything else is cropped to fit.
 //
-// PHOTO NOTE (owner): every file in /public/photos currently shows the Cheer Up
-// logo printed on the product. The site sells "their photo, their name, your
-// inside joke", so a buyer cannot picture the result from any of these. They need
-// re-shooting with a sample personal photo and a first name, same framing, 4:5,
-// 1200x1500 or larger, then `npm run images`.
+// The ten photos already in public/photos are noted beside the product they
+// belong to. They are not switched on because they show the Cheer Up logo
+// printed on the product instead of a customer's photo or name.
+// ──────────────────────────────────────────────────────────────────────────────
+//
+// Shape of one category:
+//   id       anchor on the Gifts page (/gifts#mugs) and the key everything links by
+//   name     what the visitor reads
+//   line     one sentence of feeling. Sell the moment, not the material.
+//   pick     the word for what the visitor is choosing: 'Style', 'Shape', 'Size'
+//   control  'chips' (default) or 'slider' (Photo frames only: ten sizes is a
+//            range, not a row of buttons)
+//   options  what can be ordered. Each one:
+//     id     short key
+//     n      the name on the card and in the WhatsApp message
+//     d      one line about this option
+//     price  rupees as a plain number, or null. null shows "Price on request";
+//            it is never guessed. lib/money.js adds the ₹.
+//     unit   optional, for anything not sold one at a time ('per print')
+//     from   optional, true when `price` is the lowest of a range ("From ₹649")
+//
+// OWNER TO SUPPLY: every  price: null  below.
+
 export const CATS = [
   {
+    id: 'mugs',
     name: 'Mugs',
-    image: 'photos/mug-white.jpg',
-    alt: 'White ceramic mug with a custom printed design',
-    tag: 'Every morning, a little reminder of you.',
-    line: 'Their name, in their hands, every single morning.',
-    variants: [
-      { n: 'Classic white mug', image: 'photos/mug-white.jpg', alt: 'White ceramic mug with a custom printed design', d: 'Your photo, wrapped around white ceramic. Every sip feels like a hug.', price: 269 },
-      { n: 'Colour inside mug', image: 'photos/mug-colour-inside.jpg', alt: 'Mug with a coloured inside and handle and a printed design outside', d: 'White outside, a burst of colour inside and on the handle. Just like them.', price: 329 },
-      { n: 'Magic mug', image: 'photos/mug-magic.jpg', alt: 'Dark magic mug that reveals a printed photo when a hot drink is poured in', d: 'Looks plain until the chai hits. Then your memory appears.', price: 539 },
+    image: null, alt: '',            // public/photos/mugs.jpg
+    line: 'Their name in their hands, every single morning.',
+    pick: 'Style',
+    options: [
+      { id: 'classic', n: 'Classic mug', price: 269,
+        image: null, alt: '',        // public/photos/mugs-classic.jpg   (existing: photos/mug-white.jpg)
+        d: 'Your photo, wrapped all the way round white ceramic.' },
+      { id: 'colour', n: 'Colour-inside mug', price: 329,
+        image: null, alt: '',        // public/photos/mugs-colour.jpg    (existing: photos/mug-colour-inside.jpg)
+        d: 'White outside, a burst of colour inside and on the handle.' },
+      // Added by the owner in CHEERUP-EXPLAINED.md: the handle is a heart.
+      { id: 'heart', n: 'Heart holder mug', price: 559,
+        image: null, alt: '',        // public/photos/mugs-heart.jpg
+        d: 'The handle is a heart. Every time they pick it up, they are holding yours.' },
+      { id: 'tea', n: 'Tea mug', price: null,
+        image: null, alt: '',        // public/photos/mugs-tea.jpg
+        d: 'Sized for chai, for the one who never says no to a cup.' },
+      { id: 'magic', n: 'Magic mug', price: 539,
+        image: null, alt: '',        // public/photos/mugs-magic.jpg     (existing: photos/mug-magic.jpg)
+        d: 'Plain and dark until the chai goes in. Then the memory appears.' },
     ],
   },
   {
-    name: 'Keychains',
-    image: 'photos/keychain-heart.jpg',
-    alt: 'Heart-shaped acrylic photo keychain',
-    tag: 'The smallest way to stay close.',
-    line: 'Small enough to carry everywhere. That’s the whole point.',
-    variants: [
-      { n: 'Photo keychain', image: 'photos/keychain-heart.jpg', alt: 'Heart-shaped acrylic photo keychain', d: 'A favourite memory, always in their pocket.', price: 159 },
-      { n: 'Two-sided keychain', image: 'photos/keychain-heart.jpg', alt: 'Acrylic photo keychain printed on both sides', d: 'Two sides. Two memories. Two reasons to smile.', price: 219 },
-    ],
+    id: 'frames',
+    name: 'Photo frames',
+    image: null, alt: '',            // public/photos/frames.jpg  (used for every size)
+    line: 'The photo you keep going back to, given a wall of its own.',
+    pick: 'Size',
+    control: 'slider',
+    // One option per size, 4 in to 32 in. The line under the slider changes with
+    // the size band, so moving it tells you where the frame would live.
+    options: [4, 6, 8, 10, 12, 16, 20, 24, 28, 32].map((s) => ({
+      id: String(s),
+      n: `${s} in photo frame`,
+      size: s,
+      price: null,
+      image: null, alt: '',
+      d: s <= 8 ? 'Desk size. Sits beside them while they work.'
+        : s <= 16 ? 'Shelf size. The one every guest picks up.'
+          : 'Wall size. The photo the whole room is about.',
+    })),
   },
   {
-    name: 'Paintings and prints',
-    image: 'photos/print-glass-frame.jpg',
-    alt: 'Framed photo print standing upright',
-    tag: 'Memories that deserve a wall.',
-    line: 'The photo you keep going back to deserves a wall of its own.',
-    variants: [
-      { n: 'Framed photo print', image: 'photos/print-glass-frame.jpg', alt: 'Framed photo print standing upright', d: 'Printed, framed, ready to hang or stand. The moment never fades.', price: 699 },
-      { n: 'Painted portrait', image: 'photos/print-glass-frame.jpg', alt: 'Painted portrait in a frame', d: 'Your photo, painted. Someone’s going to tear up.', price: 759 },
-      { n: 'Collage print', image: 'photos/print-glass-frame.jpg', alt: 'Framed collage print of several photos', d: 'All the favourite moments. One frame.', price: 699 },
-    ],
-  },
-  {
+    id: 'polaroids',
     name: 'Polaroids',
-    image: 'photos/polaroid-big.jpg',
-    alt: 'Polaroid-style photo print with a wide white border',
-    tag: 'Little squares of “remember when.”',
+    image: null, alt: '',            // public/photos/polaroids.jpg
     line: 'Your camera roll, finally something they can hold.',
-    variants: [
+    pick: 'Size',
+    options: [
       // OWNER TO CONFIRM: priced per print. If these are sold in packs, change
       // `unit` to 'per pack of 10' (or whatever it is) and set the pack price.
-      { n: 'Mini Snaps', image: 'photos/polaroid-mini.jpg', alt: 'Stack of mini Polaroid-style photo prints', d: 'Pocket-sized Polaroids for a stack, a wallet or a love letter.', price: 35, unit: 'per print' },
-      { n: 'Big Snaps', image: 'photos/polaroid-big.jpg', alt: 'Large Polaroid-style photo print with a wide white border', d: 'Large Polaroids for walls, fridges and gift boxes. Memories, on display.', price: 45, unit: 'per print' },
+      { id: 'small', n: 'Mini Snaps', price: 35, unit: 'per print',
+        image: null, alt: '',        // public/photos/polaroids-small.jpg  (existing: photos/polaroid-mini.jpg)
+        d: 'Pocket-sized. For a stack, a wallet, or tucked into a letter.' },
+      { id: 'big', n: 'Big Snaps', price: 45, unit: 'per print',
+        image: null, alt: '',        // public/photos/polaroids-big.jpg    (existing: photos/polaroid-big.jpg)
+        d: 'For fridges, walls, and the inside of a gift box.' },
     ],
   },
   {
-    name: 'T-shirts and hoodies',
-    image: 'photos/tee-white.jpg',
-    alt: 'White cotton T-shirt with a custom printed design',
-    tag: 'Wear the memory. Wear the joke.',
-    line: 'A gift they’ll wear close, not fold away.',
-    variants: [
-      { n: 'Photo tee', image: 'photos/tee-white.jpg', alt: 'White cotton T-shirt with a large printed photo', d: 'Your photo, printed big on soft cotton. A memory they can wear.', price: 649 },
-      { n: 'Words tee', image: 'photos/tee-white.jpg', alt: 'White cotton T-shirt with printed words', d: 'A name, a line or a joke only your gang gets.', price: 679 },
-      // Custom hoodie: no photo yet, so it is left out rather than shown as an
-      // empty card. Add  image + alt  here and it appears.
+    id: 'magnets',
+    name: 'Fridge magnets',
+    image: null, alt: '',            // public/photos/magnets.jpg
+    line: 'The first thing they see every time they open the fridge.',
+    pick: 'Shape',
+    options: [
+      { id: 'heart', n: 'Heart magnet', price: null,
+        image: null, alt: '',        // public/photos/magnets-heart.jpg
+        d: 'For the fridge of someone you love out loud.' },
+      { id: 'square', n: 'Square magnet', price: null,
+        image: null, alt: '',        // public/photos/magnets-square.jpg
+        d: 'Clean edges, the whole photo, nothing cropped.' },
+      { id: 'circle', n: 'Round magnet', price: null,
+        image: null, alt: '',        // public/photos/magnets-round.jpg
+        d: 'A little round window into a good day.' },
     ],
   },
   {
+    id: 'cases',
     name: 'Phone cases',
-    image: 'photos/case-glossy.jpg',
-    alt: 'Glossy phone case with a custom printed design',
-    tag: 'Seen a hundred times a day. Felt every time.',
-    line: 'What they hold all day will now hold you too.',
-    variants: [
-      { n: 'Soft case', image: 'photos/case-glossy.jpg', alt: 'Glossy soft phone case with a printed photo covering the back', d: 'One photo, edge to edge. Your favourite moment, always with them.', price: 369 },
-      { n: 'Hard case', image: 'photos/case-matte.jpg', alt: 'Matte hard phone case with a printed name', d: 'A name or initials on a clean colour. Simple. Personal. Theirs.', price: 329 },
+    image: null, alt: '',            // public/photos/cases.jpg
+    line: 'Seen a hundred times a day. Felt every time.',
+    pick: 'Finish',
+    options: [
+      { id: 'soft', n: 'Soft case', price: 369,
+        image: null, alt: '',        // public/photos/cases-soft.jpg  (existing: photos/case-glossy.jpg)
+        d: 'One photo, edge to edge, with a glossy finish.' },
+      { id: 'hard', n: 'Hard case', price: 329,
+        image: null, alt: '',        // public/photos/cases-hard.jpg  (existing: photos/case-matte.jpg)
+        d: 'A name or initials on a clean, matte colour.' },
+    ],
+  },
+  {
+    id: 'pillows',
+    name: 'Pillows',
+    image: null, alt: '',            // public/photos/pillows.jpg
+    line: 'Something soft to hold on the nights you are not there.',
+    pick: 'Shape',
+    options: [
+      { id: 'heart', n: 'Heart pillow', price: null,
+        image: null, alt: '',        // public/photos/pillows-heart.jpg
+        d: 'For a partner, an anniversary, a long distance.' },
+      { id: 'square', n: 'Square pillow', price: null,
+        image: null, alt: '',        // public/photos/pillows-square.jpg
+        d: 'For the sofa, with a photo everyone sits beside.' },
+    ],
+  },
+  {
+    id: 'calendars',
+    name: 'Calendars',
+    image: null, alt: '',            // public/photos/calendars.jpg
+    line: 'Twelve months of them, one page at a time.',
+    pick: 'Style',
+    options: [
+      { id: 'one', n: 'One-sided calendar', price: null,
+        image: null, alt: '',        // public/photos/calendars-one.jpg
+        d: 'A photo for every month, on their desk all year.' },
+      { id: 'two', n: 'Two-sided calendar', price: null,
+        image: null, alt: '',        // public/photos/calendars-two.jpg
+        d: 'Printed on both sides, so there are twice the photos.' },
+    ],
+  },
+  {
+    id: 'keychains',
+    name: 'Keychains',
+    image: null, alt: '',            // public/photos/keychains.jpg
+    line: 'The smallest way to stay close.',
+    pick: 'Shape',
+    options: [
+      { id: 'heart', n: 'Heart keychain', price: 159,
+        image: null, alt: '',        // public/photos/keychains-heart.jpg  (existing: photos/keychain-heart.jpg)
+        d: 'A favourite memory, always on their keys.' },
+      { id: 'violin', n: 'Violin keychain', price: null,
+        image: null, alt: '',        // public/photos/keychains-violin.jpg
+        d: 'For the one who plays, or the one who listens.' },
+      { id: 'square', n: 'Square keychain', price: null,
+        image: null, alt: '',        // public/photos/keychains-square.jpg
+        d: 'Clean and simple. The photo does the talking.' },
+      { id: 'circle', n: 'Round keychain', price: null,
+        image: null, alt: '',        // public/photos/keychains-round.jpg
+        d: 'A small round memory that goes everywhere they go.' },
+    ],
+  },
+  {
+    id: 'glass',
+    name: 'Glass frames',
+    image: null, alt: '',            // public/photos/glass.jpg   (existing: photos/print-glass-frame.jpg)
+    line: 'A photo printed on glass, with the light coming through it.',
+    pick: 'Style',
+    options: [
+      { id: 'standing', n: 'Glass photo frame', price: null,
+        image: null, alt: '',
+        d: 'Stands on a desk or a shelf and catches the window light.' },
+    ],
+  },
+  {
+    id: 'mirror',
+    name: 'Magic mirror',
+    image: null, alt: '',            // public/photos/mirror.jpg
+    line: 'A mirror, until the light comes on. Then it is them.',
+    pick: 'Style',
+    options: [
+      { id: 'standing', n: 'Magic mirror', price: null,
+        image: null, alt: '',
+        d: 'Looks like an ordinary mirror. Switch it on and the photo glows through.' },
+    ],
+  },
+  {
+    id: 'cube',
+    name: 'Cube box',
+    image: null, alt: '',            // public/photos/cube.jpg
+    line: 'Lift the lid, and there they are.',
+    pick: 'Style',
+    options: [
+      { id: 'box', n: 'Cube box', price: null,
+        image: null, alt: '',
+        d: 'A small box that opens on photos, a note, and a name.' },
+    ],
+  },
+  {
+    id: 'magazines',
+    name: 'Magazines',
+    image: null, alt: '',            // public/photos/magazines.jpg
+    line: 'A whole magazine about one person. They are the cover story.',
+    pick: 'Style',
+    options: [
+      { id: 'issue', n: 'Personal magazine', price: null,
+        image: null, alt: '',
+        d: 'Their photos, their stories, their name across the top.' },
+    ],
+  },
+  {
+    id: 'clothing',
+    name: 'Clothing',
+    image: null, alt: '',            // public/photos/clothing.jpg
+    line: 'A gift they will wear close, not fold away.',
+    pick: 'Style',
+    options: [
+      // From ₹649 (words tee) to ₹679 (photo tee), per the owner's prices, so
+      // the card says "From ₹649" rather than claiming one fixed price.
+      { id: 'tee', n: 'T-shirt', price: 649, from: true,
+        image: null, alt: '',        // public/photos/clothing-tee.jpg     (existing: photos/tee-white.jpg)
+        d: 'Their photo or your inside joke, printed on soft cotton.' },
+      { id: 'hoodie', n: 'Hoodie', price: null,
+        image: null, alt: '',        // public/photos/clothing-hoodie.jpg
+        d: 'Warm, heavy, and the next best thing to a hug.' },
+      { id: 'polo', n: 'Polo T-shirt', price: null,
+        image: null, alt: '',        // public/photos/clothing-polo.jpg
+        d: 'A name stitched small on the chest. Quietly theirs.' },
     ],
   },
 ];
 
-/** Every category's id for the Gifts page anchors: 'Paintings and prints' -> 'paintings-and-prints'. */
-export const catId = (name) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+/** A category by id: findCat('mugs'). */
+export const findCat = (id) => CATS.find((c) => c.id === id);
+
+/** A category by its display name: findCatByName('Mugs'). Used by people.js ideas. */
+export const findCatByName = (name) => CATS.find((c) => c.name === name);
+
+/** One option inside a category: findOption('mugs', 'magic'). */
+export const findOption = (catId, optId) => {
+  const c = findCat(catId);
+  return c && c.options.find((o) => o.id === optId);
+};
+
+/**
+ * The photo to show for an option: its own, else its category's, else null
+ * (the card then shows the empty image space).
+ */
+export const imageFor = (cat, opt) => {
+  if (opt && opt.image) return { src: opt.image, alt: opt.alt || `${cat.name}: ${opt.n}` };
+  if (cat.image) return { src: cat.image, alt: cat.alt || cat.name };
+  return null;
+};
+
+/** The lowest known price in a category, or null if none is set yet. */
+export const fromPrice = (cat) => {
+  const known = cat.options.map((o) => o.price).filter((p) => p != null);
+  return known.length ? Math.min(...known) : null;
+};
+
+/** The lowest known price anywhere in the catalogue (the "From ₹35" line). */
+export const lowestPrice = () => Math.min(...CATS.map(fromPrice).filter((p) => p != null));

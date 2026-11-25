@@ -22,14 +22,14 @@ import Terms from './pages/policies/Terms';
 // Keep descriptions at 155 characters or fewer.
 export const ROUTES = [
   {
-    key: 'home', label: 'Home', group: 'extra', path: '/', Page: Home,
+    key: 'home', label: 'Home', group: 'main', path: '/', Page: Home,
     title: 'Personalised gifts in Pune, delivered in 24 hours | Cheer Up',
-    description: 'Personalised mugs, prints, Polaroids, keychains and tees, made for one person and hand-delivered across Pune in 24 hours. Free preview before you pay.',
+    description: 'Personalised mugs, frames, pillows, calendars, magazines and more, made for one person and hand-delivered across Pune in 24 hours. Free preview first.',
   },
   {
     key: 'products', label: 'Gifts', group: 'main', path: '/gifts', Page: Products,
-    title: 'Personalised mugs, prints, Polaroids and more | Cheer Up Pune',
-    description: 'Six kinds of personalised gift: mugs, keychains, prints, Polaroids, tees and phone cases. Prices from ₹35. Ordered on WhatsApp, delivered in Pune.',
+    title: 'Personalised mugs, frames, pillows and more | Cheer Up Pune',
+    description: 'Thirteen kinds of personalised gift: mugs, frames, Polaroids, magnets, pillows, calendars, magazines, magic mirrors and more. From ₹35, in Pune.',
   },
   {
     key: 'request', label: 'Request a gift', group: 'main', path: '/request', Page: Request,

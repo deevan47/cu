@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { useApp } from '../../AppContext';
 import { PEOPLE } from '../../data/people';
-import { CATS, catId } from '../../data/products';
+import { findCatByName, imageFor } from '../../data/products';
 import { wa, MSG } from '../../lib/whatsapp';
 import { rise } from '../../lib/motion';
 import { href } from '../../routes';
@@ -9,8 +9,10 @@ import useUpdateEffect from '../../hooks/useUpdateEffect';
 import WaLink from '../../components/WaLink';
 import Photo from '../../components/Photo';
 
-// the category's own photo, used as the thumbnail on an idea row
-const catPhoto = (name) => CATS.find((c) => c.name === name) || {};
+// The idea's category, for its link and its thumbnail. The thumbnail is the
+// category's photo once there is one; until then the row simply has no picture
+// and its layout closes up (see .idea:not(:has(.idea__thumb)) in Home.css).
+const catFor = (name) => findCatByName(name) || { id: 'mugs', name };
 
 export default function LuckyOne() {
   const { person: i, setPerson } = useApp();
@@ -64,12 +66,15 @@ export default function LuckyOne() {
           <div id="who-panel" role="tabpanel" aria-labelledby={`who-tab-${i}`} tabIndex={-1}>
             {person.ideas.length > 0 && (
               <div className="lucky__ideas">
-                {person.ideas.map(([cat, line]) => (
+                {person.ideas.map(([cat, line]) => {
+                  const c = catFor(cat);
+                  const img = imageFor(c);
+                  return (
                   <div key={cat + line} data-idea="1" className="idea">
-                    {catPhoto(cat).image && (
+                    {img && (
                       <Photo
                         className="idea__thumb"
-                        src={catPhoto(cat).image}
+                        src={img.src}
                         alt=""              /* decorative: the text beside it names the gift */
                         ratio="4/5"
                         sizes="72px"
@@ -83,12 +88,13 @@ export default function LuckyOne() {
                       <WaLink className="btn btn--primary btn--sm" href={wa(MSG.idea(person.k, cat, line))}>
                         Order this on WhatsApp
                       </WaLink>
-                      <a className="tlink tap idea__more" href={`${href('products')}#${catId(cat)}`}>
+                      <a className="tlink tap idea__more" href={`${href('products')}#${c.id}`}>
                         See all {cat.toLowerCase()}
                       </a>
                     </div>
                   </div>
-                ))}
+                  );
+                })}
               </div>
             )}
 
