@@ -293,4 +293,5 @@ Add a line here every time something changes.
   - The build now writes `sitemap.xml` (every page except the empty Reviews page) and `robots.txt`. Before this, both returned "not found".
   - `cheerup.in/index.html` (and `/gifts/index.html` etc.) now switches straight to the clean address, so only `cheerup.in` shows in the address bar and in Analytics.
   - Removed `npm run deploy` and the `gh-pages` package. They published a stale copy to a `gh-pages` branch that still had the old 834 number. The site itself never showed it.
-  - **To do on GitHub:** delete the `gh-pages` branch (repo, Branches, bin icon), then in Google Search Console add `cheerup.in`, submit `https://cheerup.in/sitemap.xml`, and use "Request indexing" on the home page.
+  - The `gh-pages` branch is deleted and `main` is the repo's default branch, so GitHub opens on the source files.
+  - **To do:** in Google Search Console add `cheerup.in`, submit `https://cheerup.in/sitemap.xml`, and use "Request indexing" on the home page.
