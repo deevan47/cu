@@ -22,7 +22,7 @@ let serverPath = null;   // set while pre-rendering, where there is no location
 export const setServerPath = (p) => { serverPath = p; };
 
 const normalise = (p) => {
-  const clean = (p || '/').split('?')[0].split('#')[0];
+  const clean = (p || '/').split('?')[0].split('#')[0].replace(/\/index\.html$/, '/');
   const trimmed = clean.replace(/\/+$/, '');
   return trimmed === '' ? '/' : trimmed;
 };

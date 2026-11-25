@@ -160,11 +160,9 @@ has no file for, and the app then reads the real URL and shows the right page.
 2. On GitHub go to Settings, Pages, Source, and choose **GitHub Actions**.
 3. Every push to `main` now builds and deploys. The site appears at `https://<you>.github.io/<repo>/`.
 
-**Option B: manual**
-```bash
-npm run deploy
-```
-This builds and pushes `/dist` to a `gh-pages` branch. Then in Settings, Pages, set Source to **Deploy from a branch**, `gh-pages`, `/ (root)`.
+There is no manual deploy any more. The old `npm run deploy` pushed a copy to a
+`gh-pages` branch, and that stale copy still showed the old phone number. Pushing
+to `main` is the only way the site is published.
 
 **Replacing an existing repo that only has an `index.html`:** see the step-by-step in the changelog entry dated 2026-10-29 below; short version: clone the repo, delete the old `index.html`, copy this project in (without `node_modules` and `dist`), push to `main`, then set Settings, Pages, Source to **GitHub Actions**.
 
@@ -179,7 +177,7 @@ paths above break; change `base` to `'/<repo>/'` and rebuild.
 
 ## 7. Troubleshooting
 
-- **Blank page after deploy:** Settings, Pages, Source must be "GitHub Actions" (Option A) or the `gh-pages` branch (Option B).
+- **Blank page after deploy:** Settings, Pages, Source must be "GitHub Actions".
 - **Changes not showing:** hard refresh (Ctrl+Shift+R); on GitHub wait for the Actions run to finish.
 - **`npm run dev` port busy:** Vite picks the next free port and prints it.
 - **Photo not appearing:** path is relative to `public/`, with no leading slash: `photos/mug.jpg`. If it appears but has no `srcset`, run `npm run images`.
@@ -289,3 +287,10 @@ Add a line here every time something changes.
 
   Checked at 1440px and 375px: no horizontal overflow, no internal notes on any page, no console errors or hydration warnings on the production build, and the Google tag on every pre-rendered page.
 
+- **2026-11-25 (Google, one address)** Searching Google for the shop should now lead to cheerup.in. Changes:
+  - The Home tab title now starts with the name: "Cheer Up | Personalised gifts in Pune, delivered in 24 hours".
+  - The Home page tells Google the site's name ("Cheer Up") and the other names people type ("CheerUp", "Cheer Up Pune", "cheerup.in"). You can edit them in `alternateNames` in `src/data/site.js`.
+  - The build now writes `sitemap.xml` (every page except the empty Reviews page) and `robots.txt`. Before this, both returned "not found".
+  - `cheerup.in/index.html` (and `/gifts/index.html` etc.) now switches straight to the clean address, so only `cheerup.in` shows in the address bar and in Analytics.
+  - Removed `npm run deploy` and the `gh-pages` package. They published a stale copy to a `gh-pages` branch that still had the old 834 number. The site itself never showed it.
+  - **To do on GitHub:** delete the `gh-pages` branch (repo, Branches, bin icon), then in Google Search Console add `cheerup.in`, submit `https://cheerup.in/sitemap.xml`, and use "Request indexing" on the home page.

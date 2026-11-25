@@ -2,6 +2,8 @@
 export const SITE = {
   name: 'Cheer Up',
   tagline: 'Smile Delivered',
+  // Other ways people search for the shop. Google uses these to match them to cheerup.in.
+  alternateNames: ['CheerUp', 'Cheer Up Pune', 'cheerup.in'],
   whatsapp: '919505969670',            // country code + number, digits only (used for wa.me links)
   phoneDisplay: '+91 9505 9696 70',    // the one way the number is written, everywhere
   phoneCopy: '9505969670',             // what the "Copy number" button puts on the clipboard

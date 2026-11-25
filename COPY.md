@@ -608,7 +608,7 @@ Keep descriptions at 155 characters or fewer, or Google cuts them off.
 
 | # | Page | URL | Title | Description | New |
 |---|---|---|---|---|---|
-| 17.1 | Home | `/` | Personalised gifts in Pune, delivered in 24 hours \| Cheer Up | Personalised mugs, frames, pillows, calendars, magazines and more, made for one person and hand-delivered across Pune in 24 hours. Free preview first. |  |
+| 17.1 | Home | `/` | Cheer Up \| Personalised gifts in Pune, delivered in 24 hours | Personalised mugs, frames, pillows, calendars, magazines and more, made for one person and hand-delivered across Pune in 24 hours. Free preview first. |  |
 | 17.2 | Gifts | `/gifts` | Personalised mugs, frames, pillows and more \| Cheer Up Pune | Thirteen kinds of personalised gift: mugs, frames, Polaroids, magnets, pillows, calendars, magazines, magic mirrors and more. From ₹35, in Pune. |  |
 | 17.3 | Request a gift | `/request` | Request a custom gift \| Cheer Up Pune | Not in the catalogue? Describe the gift you want and I will make it and deliver it in Pune. Team orders, wedding favours and one-off ideas welcome. |  |
 | 17.4 | How it works | `/how-it-works` | How ordering works \| Cheer Up | Seven steps from your first message to their doorbell. A free design preview, 70% after you approve, 30% at the door. All on WhatsApp. |  |
@@ -620,6 +620,9 @@ Keep descriptions at 155 characters or fewer, or Google cuts them off.
 | 17.10 | Delivery | `/delivery` | Delivery \| Cheer Up | Cheer Up delivers within Pune only, usually within 24 hours of you approving the design, with WhatsApp updates at every step. |  |
 | 17.11 | Privacy | `/privacy` | Privacy \| Cheer Up | What Cheer Up collects to make your gift, who it is shared with, and when your photos and details are deleted. |  |
 | 17.12 | Terms | `/terms` | Terms of service \| Cheer Up | The terms you order under: a free preview first, 70% on approval, 30% on delivery, all confirmed over WhatsApp. |  |
+
+The Home title starts with the name on purpose, so a search for "Cheer Up" matches it
+first. The other pages end with it.
 
 The picture shown beside these in a WhatsApp preview is `public/og.jpg`. Rebuild it
 with `npm run og` after changing the logo or the products in it.

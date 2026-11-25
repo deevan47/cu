@@ -55,4 +55,17 @@ for (const route of ROUTES) {
 }
 write('404.html', page(ROUTES.find((r) => r.path === '/')));
 
-console.log(`prerendered ${ROUTES.length} pages + 404.html`);
+// sitemap.xml: every page Google should list. 'extra' pages (Reviews, while it is
+// empty) are left out until they have something on them.
+const ORIGIN = 'https://cheerup.in';
+const today = new Date().toISOString().slice(0, 10);
+const listed = ROUTES.filter((r) => r.group !== 'extra');
+const loc = (r) => `${ORIGIN}${r.path === '/' ? '/' : `${r.path}/`}`;
+writeFileSync(join(DIST, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${listed.map((r) => `  <url><loc>${loc(r)}</loc><lastmod>${today}</lastmod><priority>${r.path === '/' ? '1.0' : r.group === 'main' ? '0.8' : '0.3'}</priority></url>`).join('\n')}
+</urlset>
+`);
+writeFileSync(join(DIST, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${ORIGIN}/sitemap.xml\n`);
+
+console.log(`prerendered ${ROUTES.length} pages + 404.html, sitemap.xml (${listed.length} URLs), robots.txt`);

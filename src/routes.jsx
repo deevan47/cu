@@ -23,7 +23,7 @@ import Terms from './pages/policies/Terms';
 export const ROUTES = [
   {
     key: 'home', label: 'Home', group: 'main', path: '/', Page: Home,
-    title: 'Personalised gifts in Pune, delivered in 24 hours | Cheer Up',
+    title: 'Cheer Up | Personalised gifts in Pune, delivered in 24 hours',
     description: 'Personalised mugs, frames, pillows, calendars, magazines and more, made for one person and hand-delivered across Pune in 24 hours. Free preview first.',
   },
   {

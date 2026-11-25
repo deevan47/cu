@@ -16,7 +16,9 @@ function localBusinessJsonLd() {
   return {
     '@context': 'https://schema.org',
     '@type': 'Store',
+    '@id': `${ORIGIN}/#business`,
     name: SITE.name,
+    alternateName: SITE.alternateNames,
     slogan: SITE.tagline,
     url: `${ORIGIN}/`,
     logo: `${ORIGIN}/favicon.svg`,
@@ -28,6 +30,22 @@ function localBusinessJsonLd() {
     priceRange: `From ₹${lowestPrice()}`,
     address: { '@type': 'PostalAddress', addressLocality: SITE.city, addressRegion: 'Maharashtra', addressCountry: 'IN' },
     areaServed: { '@type': 'City', name: SITE.city },
+  };
+}
+
+/**
+ * The site's name for Google. This is what Google reads to show "Cheer Up" as the
+ * site name above the result, and what ties searches for "cheerup" or "cheer up
+ * pune" to cheerup.in. Home page only, as Google asks.
+ */
+function websiteJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: SITE.name,
+    alternateName: SITE.alternateNames,
+    url: `${ORIGIN}/`,
+    publisher: { '@id': `${ORIGIN}/#business` },
   };
 }
 
@@ -76,6 +94,7 @@ export function headTags(key) {
   // /gifts -> /gifts/, so the canonical has to be the URL that actually answers.
   const url = `${ORIGIN}${r.path === '/' ? '/' : `${r.path}/`}`;
   const jsonLd = [localBusinessJsonLd()];
+  if (key === 'home') jsonLd.unshift(websiteJsonLd());
   if (key === 'products') jsonLd.push(...productsJsonLd());
   return {
     title: r.title,

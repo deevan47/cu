@@ -2,6 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <!-- cheerup.in/index.html and /gifts/index.html are the same pages as cheerup.in/
+         and /gifts/. Clean the address bar first, so visitors, bookmarks and Analytics
+         only ever see the short URL. -->
+    <script>if(/\/index\.html$/.test(location.pathname))history.replaceState(null,'',location.pathname.slice(0,-10)+location.search+location.hash)</script>
     <!-- Google Analytics (GA4). The ID is the measurement ID from Analytics >
          Admin > Data streams. Page views on in-site navigation are recorded by GA4's
          "Enhanced measurement > Page changes based on browser history events", which
